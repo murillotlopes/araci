@@ -1,1 +1,137 @@
 /* You can add global styles to this file, and also import other style files */
+// @import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/icon?family=Material+Icons');
+
+html {
+  font-size: 16px;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: var(--white-primary);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  // cores principais
+  --primary-color: #2a9d8f; // botões links e elementos de destaque
+  --secondary-color: #264653; // botões secundários e elementos de complemento
+  --accent-color: #F4A261; // hover e icones
+  --tertiary-color: #E9C46A; // fundo de seções e áreas neutras
+  --secondary-dark-color: #E76F51; // contraste de título ou seções e cabeçalho
+
+  // cores principais em enfase
+  --primary-color-emphasis: #7dbeb3;
+  --secondary-color-emphasis: #6b7f89;
+  --accent-color-emphasis: #fdc195;
+  --tertiary-color-emphasis: #f4d79c;
+  --secondary-dark-color-emphasis: #f6a088;
+
+  // cores de feedback
+  --success-color: #4CAF50; // mensagem de sucesso
+  --error-color: #d62828; // mensagem de erro
+  --alert-color: #ffb703; // mensagem de alerta
+  --info-color: #33a1fd; // mensagem de informação
+
+  // cores de feedback em enfase
+  --success-color-emphasis: #8dca89;
+  --error-color-emphasis: #ef7b6a;
+  --alert-color-emphasis: #ffce6f;
+  --info-color-emphasis: #90bffe;
+
+  // cores de texto
+  --gray-primary: #474747;
+  --gray-secondary: #757575;
+  --gray-input: #999;
+  --gray-tertiary: #E0E0E0;
+  --white-primary: #efefef;
+
+  // 
+  --border-radius: 4px;
+  --box-shadow: 10px 12px 54px 1px #47474775;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  font-size: 1rem;
+  font-weight: 400;
+}
+
+.txt-gray-p {
+  color: var(--gray-primary);
+}
+
+.txt-gray-s {
+  color: var(--gray-secondary);
+}
+
+.txt-gray-t {
+  color: var(--gray-tertiary);
+}
+
+.txt-white {
+  color: var(--white-primary);
+}
+
+.txt-primary {
+  color: var(--primary-color);
+}
+
+.txt-secondary {
+  color: var((--secondary-color));
+}
+
+.txt-accent {
+  color: var(--accent-color);
+}
+
+.txt-tertiary {
+  color: var(--tertiary-color);
+}
+
+.txt-secondary-dark {
+  color: var(--secondary-dark-color);
+}
+
+.bk-primary {
+  background-color: var(--primary-color);
+  color: var(--white-primary);
+}
+
+.bk-secondary {
+  background-color: var(--secondary-color);
+  color: var(--white-primary);
+}
+
+.bk-accent {
+  background-color: var(--accent-color);
+  color: var(--white-primary);
+}
+
+.bk-tertiary {
+  background-color: var(--tertiary-color);
+  color: var(--white-primary);
+}
+
+.bk-secondary-dark {
+  background-color: var(--secondary-dark-color);
+  color: var(--white-primary);
+}
+
+.cursor-pointer {
+  cursor: pointer;
+}
