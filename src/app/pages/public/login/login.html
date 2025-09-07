@@ -4,20 +4,13 @@
 
     <form [formGroup]="formGroup" (ngSubmit)="submitForm()" autocomplete="off">
       <div class="mb-3">
-        <label for="email" class="form-label">E-mail</label>
-        <input type="email" id="email" class="form-control" formControlName="email" placeholder="Digite seu e-mail" />
-        @if (formGroup.get('email')?.invalid && formGroup.get('email')?.touched) {
-        <small class="text-danger">Digite um e-mail válido</small>
-        }
+        <app-input-text formControlName="email" [formGroup]="formGroup" label="E-mail"
+          placeholder="Digite seu e-mail"></app-input-text>
       </div>
 
       <div class="mb-3">
-        <label for="password" class="form-label">Senha</label>
-        <input type="password" id="password" class="form-control" formControlName="password"
-          placeholder="Digite sua senha" />
-        @if (formGroup.get('password')?.invalid && formGroup.get('password')?.touched) {
-        <small class="text-danger">Senha obrigatória</small>
-        }
+        <app-input-password formControlName="password" [formGroup]="formGroup" label="Senha"
+          placeholder="Digite sua senha"></app-input-password>
       </div>
 
       <button type="submit" class="btn btn-primary w-100" [disabled]="formGroup.invalid">

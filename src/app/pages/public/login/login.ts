@@ -1,21 +1,27 @@
 import { Component } from '@angular/core';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
+import { RxFormBuilder, RxwebValidators } from '@rxweb/reactive-form-validators';
+import { InputPassword } from '../../../components/input-password/input-password';
+import { InputText } from '../../../components/input-text/input-text';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, InputText, InputPassword],
   templateUrl: './login.html',
   styleUrl: './login.scss'
 })
 export class Login {
   formGroup!: FormGroup;
+  protected formBuilder: RxFormBuilder = new RxFormBuilder()
 
-  constructor(private fb: FormBuilder, private router: Router) {
-    this.formGroup = this.fb.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required],
-    });
+  constructor(
+    private router: Router,
+  ) {
+    this.formGroup = this.formBuilder.group({
+      email: [null, [RxwebValidators.required({ message: 'Campo obrigatório' }), RxwebValidators.email({ message: 'E-mail inválido' })]],
+      password: [null, RxwebValidators.required({ message: 'Campo obrigatório' })],
+    })
   }
 
   submitForm() {
