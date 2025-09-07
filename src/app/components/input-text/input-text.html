@@ -1,0 +1,14 @@
+<div class="input-container" [class.focused]="verifyActiveInput(formGroup.get(formControlName))"
+  [formGroup]="formGroup">
+  <input type="text" [formControlName]="formControlName" (focus)="onFocus()" (blur)="onBlur()"
+    (input)="onInputChange($event)" [placeholder]="placeholder" [id]="formControlName" />
+  <label [class.active]="verifyActiveInput(formGroup.get(formControlName))" [for]="formControlName">{{ label }}</label>
+</div>
+<div class="error-message">
+  @if (formGroup.get(formControlName)?.invalid && (formGroup.get(formControlName)?.dirty ||
+  formGroup.get(formControlName)?.touched)) {
+  <small [title]="getFormError(formGroup.controls[formControlName])">
+    {{ getFormError(formGroup.controls[formControlName]) }}
+  </small>
+  }
+</div>
