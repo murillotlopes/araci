@@ -30,9 +30,9 @@
 
   label.active {
     top: -10px;
-    font-size: 0.75rem;
+    font-size: 0.9rem;
     color: var(--primary-color);
-    font-weight: 500;
+    font-weight: 700;
   }
 
   input::placeholder {
@@ -59,7 +59,7 @@
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  // min-height: 1.5625rem;
+  min-height: 1.5625rem;
 
   small {
     color: var(--error-color);
