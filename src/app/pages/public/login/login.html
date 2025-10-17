@@ -2,7 +2,7 @@
   <div class="form-box">
     <h2 class="text-center mb-4 txt-primary">Login</h2>
 
-    <form [formGroup]="formGroup" (ngSubmit)="submitForm()" autocomplete="off">
+    <form [formGroup]="formGroup" (ngSubmit)="submitForm($event)" autocomplete="off">
       <div class="mb-3">
         <app-input-text formControlName="email" [formGroup]="formGroup" label="E-mail"
           placeholder="Digite seu e-mail"></app-input-text>

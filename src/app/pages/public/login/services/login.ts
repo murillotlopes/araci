@@ -1,22 +1,38 @@
 import { Injectable } from '@angular/core';
-import { map, Observable, tap } from 'rxjs';
-import { Auth } from '../../../../requests/auth';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
+import { throwError } from 'rxjs';
+import { AuthRequest } from '../../../../requests/auth/auth.request';
+import { BaseService } from '../../../shared/base.service';
 
 @Injectable({
   providedIn: 'root'
 })
-export class LoginService {
-  constructor(
-    private authApi: Auth
-  ) { }
+export class LoginService extends BaseService {
 
-  login(data: { email: string, password: string }): Observable<boolean> {
-    return this.authApi.login(data).pipe(
-      tap(res => {
-        // Aqui coloca a lógica pra salvar o token no storage do navegador
+  constructor(
+    private auttRequest: AuthRequest,
+    router: Router,
+    toastr: ToastrService
+  ) {
+    super(auttRequest, router, toastr)
+  }
+
+  public login(data: { email: string, password: string }): void {
+    this.auttRequest.login(data).subscribe({
+
+      next: (res => {
+        const { accessToken, authType, expiresIn } = res
+
+        localStorage.setItem('@token', accessToken)
+        this.router.navigate(['/dashboard'])
+        this.toastr.success('Seja bem vindo!')
       }),
-      map(() => true)
-    )
+      error: (error => {
+        return throwError(() => error)
+      })
+
+    })
   }
 
 }
