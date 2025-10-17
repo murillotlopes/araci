@@ -1,0 +1,88 @@
+.accordion-button {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.3rem;
+  color: var(--white-primary);
+  text-align: left;
+  background-color: var(--primary-color);
+  border: 0;
+  overflow-anchor: none;
+
+  &:not(.collapsed) {
+    color: var(--white-primary);
+    background-color: var(--secondary-color-emphasis);
+    box-shadow: none;
+  }
+
+  &::after {
+    flex-shrink: 0;
+    margin-left: auto;
+    background-repeat: no-repeat;
+  }
+
+  &.superCollapsed::after {
+    background-image: none;
+    background-size: 0;
+  }
+
+  &:hover {
+    z-index: 2;
+  }
+
+  &:focus {
+    z-index: 3;
+    outline: 0;
+    box-shadow: none;
+  }
+
+}
+
+.accordion-header {
+  margin-bottom: 0;
+}
+
+.accordion-item {
+  border: none;
+  margin-bottom: 0.5rem;
+
+  &:not(:first-of-type) {
+    border-top: 0;
+  }
+
+  &:last-of-type {
+
+    >.accordion-collapse {
+      background-color: var(--secondary-color-emphasis);
+    }
+  }
+}
+
+.accordion-body {
+  padding: 0.5rem;
+  border: none;
+  color: var(--white-primary);
+}
+
+.item-menu {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding: 0.3rem;
+  font-size: 1rem;
+  text-align: left;
+  border: 0;
+  overflow-anchor: none;
+  background-color: var(--accent-color);
+  text-decoration: none;
+  color: var(--gray-primary);
+  border-radius: var(--border-radius);
+
+  &:focus {
+    background-color: var(--secondary-dark-color);
+    color: var(--white-primary);
+  }
+
+}

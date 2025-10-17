@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { DefaultRequestMethod } from './shared/default.request';
-import { HttpMethod } from './shared/http-method.enum';
+import { DefaultRequestMethod } from '../shared/default.request';
+import { HttpMethod } from '../shared/http-method.enum';
 
 @Injectable({
   providedIn: 'root'

@@ -1,7 +1,8 @@
 import { Routes } from '@angular/router';
-import { LayoutPrivate } from './pages/private/layout-private/layout-private';
+import { LayoutPrivate } from './components/layouts/private/layout-private.component';
+import { LayoutPublic } from './components/layouts/public/layout';
+import { Dashboard } from './pages/private/dashboard/dashboard';
 import { Home } from './pages/public/home/home';
-import { LayoutPublic } from './pages/public/layout/layout';
 import { Login } from './pages/public/login/login';
 import { Register } from './pages/public/register/register';
 
@@ -19,7 +20,10 @@ export const routes: Routes = [
   // Rotas privadas *** Com Autenticação ***
   {
     path: '',
-    component: LayoutPrivate
+    component: LayoutPrivate,
+    children: [
+      { path: 'dashboard', component: Dashboard }
+    ]
   },
   { path: '**', redirectTo: '/', pathMatch: 'full' }
 ];
