@@ -29,7 +29,7 @@ export class MenuComponent {
 
   private getMenu(): MenuInterface[] | undefined {
 
-    const menu = sessionStorage.getItem('@menu') as string
+    const menu = sessionStorage.getItem('@pin_menu') as string
 
     if (!menu) this.authService.logout()
 

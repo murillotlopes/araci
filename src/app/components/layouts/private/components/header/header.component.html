@@ -1,8 +1,24 @@
-<header class="header-content p-3">
-  <div class="d-flex justify-content-end">
-    <!-- <i class="fas fa-cog icon mx-2"></i>
-    <i class="fas fa-user icon mx-2"></i>
-    <i class="fas fa-adjust icon mx-2" (click)="toggleTheme()"></i> -->
-    <i class="fa-solid fa-right-from-bracket" title="Sair" alt="logout" (click)="logout()"></i>
+<header class="navbar navbar-expand-lg fixed-top custom-header shadow">
+  <div class="container">
+    <a class="navbar-brand txt-primary fw-bold" href="#">ERP Pindorama</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarContent">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#facilidade">Facilidade</a></li>
+        <li class="nav-item"><a class="nav-link" href="#recursos">Recursos</a></li>
+        <li class="nav-item"><a class="nav-link" href="#missao">Missão</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/login">Login</a></li>
+        <li class="nav-item"><a class="nav-link" routerLink="/register">Cadastro</a></li>
+        <li class="nav-item">
+          <button class="btn btn-sm toggle-theme" (click)="toggleTheme()">
+            @if(theme === 'light') { <i class="fas fa-moon"></i>}
+            @else{ <i class="fas fa-sun"></i>}
+          </button>
+        </li>
+      </ul>
+    </div>
   </div>
 </header>

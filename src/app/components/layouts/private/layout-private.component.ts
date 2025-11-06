@@ -31,7 +31,6 @@ export class LayoutPrivate {
 
         this.addClassByAriaControls(id)
         this.addClassById(id)
-
       })
 
     }
