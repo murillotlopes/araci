@@ -1,0 +1,16 @@
+<div class="layout-content">
+  <aside class="sidebar" [class.collapsed]="isCollapsed" (mouseenter)="hoverSidebar(true)"
+    (mouseleave)="hoverSidebar(false)">
+    <div class="sandwich-menu" (click)="toggleSidebar()">
+      <i class="fas fa-bars"></i>
+      <span class="ms-2">Pindorama ERP</span>
+    </div>
+    <app-menu [isCollapsed]="isCollapsed" [isHovered]="isHovered" [childrenIdList]="childrenIdList"></app-menu>
+  </aside>
+  <div class="main-content">
+    <app-header></app-header>
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+</div>

@@ -1,0 +1,9 @@
+<nav>
+  <div class="accordion" [id]="accordionId">
+    <ng-container *ngFor="let item of menu;">
+      <app-menu-item [item]="item" [parentId]="accordionId" [isCollapsed]="isCollapsed" [isHovered]="isHovered"
+        [childrenIdList]="childrenIdList">
+      </app-menu-item>
+    </ng-container>
+  </div>
+</nav>

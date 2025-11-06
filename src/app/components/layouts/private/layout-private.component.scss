@@ -1,0 +1,44 @@
+.layout-content {
+  min-width: 100vw;
+  min-height: 100vh;
+  display: flex;
+}
+
+.sidebar {
+  width: 17rem;
+  background-color: var(--secondary-color);
+  color: var(--white-primary);
+  transition: width 0.3s;
+
+  .sandwich-menu {
+    margin: 10px;
+    padding: 10px;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
+  &.collapsed {
+    width: 5rem;
+
+    .sandwich-menu span {
+      display: none;
+    }
+  }
+
+  &:hover {
+    width: 17rem;
+
+    .sandwich-menu span {
+      display: inline;
+    }
+  }
+}
+
+.main-content {
+  width: 100%;
+}
+
+.sidebar.sandwich-menu {
+  display: flex;
+  align-items: center;
+}

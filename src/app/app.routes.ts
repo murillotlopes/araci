@@ -1,7 +1,10 @@
 import { Routes } from '@angular/router';
-import { LayoutPrivate } from './pages/private/layout-private/layout-private';
+import { LayoutPrivate } from './components/layouts/private/layout-private.component';
+import { LayoutPublic } from './components/layouts/public/layout';
+import { PrivateGuard } from './guards/private-guard';
+import { PublicGuard } from './guards/public-guard-guard';
+import { Dashboard } from './pages/private/dashboard/dashboard';
 import { Home } from './pages/public/home/home';
-import { LayoutPublic } from './pages/public/layout/layout';
 import { Login } from './pages/public/login/login';
 import { Register } from './pages/public/register/register';
 
@@ -10,16 +13,21 @@ export const routes: Routes = [
   {
     path: '',
     component: LayoutPublic,
+    canActivate: [PublicGuard],
     children: [
       { path: '', component: Home },
       { path: 'login', component: Login },
-      { path: 'register', component: Register }
+      { path: 'register', component: Register },
     ]
   },
   // Rotas privadas *** Com Autenticação ***
   {
     path: '',
-    component: LayoutPrivate
+    component: LayoutPrivate,
+    canActivate: [PrivateGuard],
+    children: [
+      { path: 'dashboard', component: Dashboard }
+    ]
   },
-  { path: '**', redirectTo: '/', pathMatch: 'full' }
+  { path: '**', redirectTo: 'dashboard', pathMatch: 'full' }
 ];

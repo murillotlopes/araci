@@ -5,6 +5,7 @@ import { HeaderPublic } from './components/header/header';
 
 @Component({
   selector: 'app-layout-public',
+  standalone: true,
   imports: [RouterOutlet, FooterPublic, HeaderPublic],
   templateUrl: './layout.html',
   styleUrl: './layout.scss'

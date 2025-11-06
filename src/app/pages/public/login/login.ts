@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { InputPassword } from '../../../components/input-password/input-password';
 import { InputText } from '../../../components/input-text/input-text';
+import { AuthService } from '../../../services/auth/auth.service';
 import { FormResource } from '../../shared/form-resource';
-import { LoginService } from './services/login';
 
 @Component({
   selector: 'app-login',
@@ -16,9 +16,9 @@ import { LoginService } from './services/login';
 export class Login extends FormResource {
 
   constructor(
-    loginService: LoginService
+    authService: AuthService
   ) {
-    super(loginService)
+    super(authService)
     this.setMethodSubmitForm('login')
   }
 

@@ -1,7 +1,7 @@
 import { Directive } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { RxFormBuilder } from '@rxweb/reactive-form-validators';
-import { BaseService } from './base.service';
+import { BaseService } from '../../services/shared/base.service';
 
 @Directive()
 export abstract class FormResource {

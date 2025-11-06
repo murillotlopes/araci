@@ -4,8 +4,8 @@ import { RouterLink } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { InputPassword } from '../../../components/input-password/input-password';
 import { InputText } from '../../../components/input-text/input-text';
+import { UserService } from '../../../services/user/user.service';
 import { FormResource } from '../../shared/form-resource';
-import { RegisterService } from './services/register';
 
 @Component({
   selector: 'app-register',
@@ -16,9 +16,9 @@ import { RegisterService } from './services/register';
 export class Register extends FormResource {
 
   constructor(
-    registerService: RegisterService
+    userService: UserService
   ) {
-    super(registerService)
+    super(userService)
     this.setMethodSubmitForm('register')
   }
 
