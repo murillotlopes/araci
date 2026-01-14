@@ -1,32 +1,25 @@
 .header-content {
-  background-color: var(--secondary-color);
-  color: var(--white-primary);
+  background-color: var(--background-color);
+  color: var(--text-color);
+  box-shadow: var(--shadow-md);
+  height: 4rem;
+  padding: 1rem;
+
+  div {
+    display: flex;
+    justify-content: end;
+    margin-right: 1.5rem;
+  }
 
   i {
     cursor: pointer;
   }
 }
 
-.custom-header {
-  background-color: var(--surface-color);
-  transition: background-color 0.3s ease;
-}
-
 .nav-link {
   color: var(--text-color);
   margin: 0 0.5rem;
   transition: color 0.2s;
-
-  &:hover {
-    color: var(--primary-color);
-  }
-}
-
-.toggle-theme {
-  border: none;
-  background: transparent;
-  color: var(--text-color);
-  font-size: 1.2rem;
 
   &:hover {
     color: var(--primary-color);
