@@ -12,7 +12,7 @@
 
   &:not(.collapsed) {
     color: var(--white-primary);
-    background-color: var(--secondary-color-emphasis);
+    background-color: var(--secondary-dark-color);
     box-shadow: none;
   }
 
@@ -54,7 +54,7 @@
   &:last-of-type {
 
     >.accordion-collapse {
-      background-color: var(--secondary-color-emphasis);
+      background-color: var(--secondary-dark-color);
     }
   }
 }
