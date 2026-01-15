@@ -1,11 +1,11 @@
-import { NgFor, NgIf } from '@angular/common';
+
 import { Component, Input } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 
 @Component({
   selector: 'app-menu-item',
   standalone: true,
-  imports: [RouterLink, RouterLinkActive, NgIf, NgFor],
+  imports: [RouterLink, RouterLinkActive],
   templateUrl: './menu-item.component.html',
   styleUrl: './menu-item.component.scss'
 })

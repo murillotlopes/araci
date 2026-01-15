@@ -1,34 +1,50 @@
-<ng-container *ngIf="item?.menu; else singleLink">
+@if (item?.menu) {
   <div class="accordion-item">
     <h2 class="accordion-header">
       <button class="accordion-button collapsed" [class.superCollapsed]="isCollapsed && !isHovered" type="button"
         data-bs-toggle="collapse" [attr.data-bs-target]="'#' + parentId + childId" aria-expanded="true"
         [attr.aria-controls]="parentId + childId" [title]="item?.title || ''" [attr.alt]="item?.alt || ''">
         <i class="me-2" [class]="item?.icon"></i>
-        <span *ngIf="!isCollapsed || isHovered">{{ item.name }}</span>
+        @if (!isCollapsed || isHovered) {
+          <span>{{ item.name }}</span>
+        }
       </button>
     </h2>
-    <div [id]="parentId + childId" class="accordion-collapse collapse" [attr.data-bs-parent]="'#' + parentId"
-      *ngIf="item?.menu">
-      <div class="accordion-body">
-        <ng-container *ngIf="item.menu; else singleLink">
-          <ng-container *ngFor="let subItem of item.menu;">
-            <app-menu-item [item]="subItem" [parentId]="parentId + childId" [isHovered]="isHovered"
+    @if (item?.menu) {
+      <div [id]="parentId + childId" class="accordion-collapse collapse" [attr.data-bs-parent]="'#' + parentId"
+        >
+        <div class="accordion-body">
+          @if (item.menu) {
+            @for (subItem of item.menu; track subItem) {
+              <app-menu-item [item]="subItem" [parentId]="parentId + childId" [isHovered]="isHovered"
               [childrenIdList]="childrenIdList"></app-menu-item>
-          </ng-container>
-        </ng-container>
+            }
+          } @else {
+            <div class="accordion-item">
+              <h2 class="accordion-header">
+                <a class="item-menu" [routerLink]="item.link" routerLinkActive="active">
+                  <i class="me-2" [class]="item?.icon"></i>
+                  @if (!isCollapsed || isHovered) {
+                    <span>{{ item.name }}</span>
+                  }
+                </a>
+              </h2>
+            </div>
+          }
+        </div>
       </div>
-    </div>
+    }
   </div>
-</ng-container>
-
-<ng-template #singleLink>
+} @else {
   <div class="accordion-item">
     <h2 class="accordion-header">
       <a class="item-menu" [routerLink]="item.link" routerLinkActive="active">
         <i class="me-2" [class]="item?.icon"></i>
-        <span *ngIf="!isCollapsed || isHovered">{{ item.name }}</span>
+        @if (!isCollapsed || isHovered) {
+          <span>{{ item.name }}</span>
+        }
       </a>
     </h2>
   </div>
-</ng-template>
+}
+
