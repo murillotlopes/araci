@@ -1,0 +1,13 @@
+<div class="tabs-container">
+  <ul class="tabs-nav">
+    @for (pane of panes; track pane.activeId) {
+    <li class="tab-item" [class.active]="activeTabId === pane.activeId" (click)="selectTab(pane.activeId)">
+      {{ pane.label }}
+    </li>
+    }
+  </ul>
+
+  <div class="tabs-content">
+    <ng-content></ng-content>
+  </div>
+</div>
