@@ -1,0 +1,27 @@
+.default-button {
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  padding: 0.3rem 0.5rem;
+  background-color: #ffffff00;
+  color: var(--primary-color);
+  font-weight: 600;
+  font-size: 1.1rem;
+  border: 2px solid var(--primary-color);
+
+
+  &:hover {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+  }
+
+  &:active {
+    background-color: var(--secondary-dark-color);
+    color: var(--text-color);
+  }
+
+  &:disabled {
+    cursor: default;
+    background-color: #ffffff00;
+    color: var(--primary-color);
+  }
+}
