@@ -36,6 +36,7 @@
   .tabs-content {
     padding: 1.5rem;
     border: 1px solid var(--primary-color);
+    border-radius: 0px 0px var(--border-radius) var(--border-radius);
     border-top: none;
 
     .tab-pane {
