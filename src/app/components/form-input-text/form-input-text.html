@@ -1,0 +1,12 @@
+<div class="form-input-text" [formGroup]="formGroup">
+  <label [for]="formControlName">{{ label }}</label>
+  <input type="text" [formControlName]="formControlName" [placeholder]="placeholder" [id]="formControlName">
+  <div class="error-message">
+    @if (formGroup.get(formControlName)?.invalid && (formGroup.get(formControlName)?.dirty ||
+    formGroup.get(formControlName)?.touched)) {
+    <small [title]="getFormError(formGroup.controls[formControlName])">
+      {{ getFormError(formGroup.controls[formControlName]) }}
+    </small>
+    }
+  </div>
+</div>
