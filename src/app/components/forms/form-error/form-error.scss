@@ -1,0 +1,24 @@
+.error-message {
+  margin-top: 0.25rem;
+  min-height: 1.125rem;
+
+  small {
+    color: var(--error-color);
+    font-size: 0.75rem;
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.2;
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity 0.2s ease, transform 0.2s ease;
+  }
+
+}
+
+.error-message.visible small {
+  opacity: 1;
+  transform: translateY(0);
+}

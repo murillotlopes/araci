@@ -1,0 +1,5 @@
+<div class="error-message" [class.visible]="shouldShowError()">
+  <small [title]="shouldShowError() ? errorMessage : ''">
+    {{ shouldShowError() ? errorMessage : '' }}
+  </small>
+</div>
