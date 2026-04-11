@@ -1,50 +1,45 @@
-import { Component, forwardRef, Input } from '@angular/core';
-import { FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '@angular/forms';
-import { RxFormControl, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { Component, Input, Optional, Self } from '@angular/core';
+import { AbstractControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { FormError } from '../forms/form-error/form-error';
 
 @Component({
   selector: 'app-form-input-text',
-  imports: [ReactiveFormsModule, FormsModule, RxReactiveFormsModule],
+  imports: [ReactiveFormsModule, FormsModule, RxReactiveFormsModule, FormError],
   templateUrl: './form-input-text.html',
   styleUrl: './form-input-text.scss',
-  providers: [{
-    provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => FormInputText),
-    multi: true
-  }]
 })
 export class FormInputText {
-  @Input() formControlName!: string
-  @Input() placeholder!: string
-  @Input() formGroup!: FormGroup
-  @Input() label!: string
+  @Input({ required: true }) formControlName!: string;
+  @Input() placeholder = '';
+  @Input({ required: true }) formGroup!: FormGroup;
+  @Input({ required: true }) label!: string;
 
   public value: string = '';
 
-  public onChange = (value: string) => { };
+  constructor(@Self() @Optional() public ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+  }
+
+  get control(): AbstractControl | null {
+    return this.ngControl?.control ?? this.formGroup?.get(this.formControlName) ?? null;
+  }
+
+  public onChange = (_value: string) => { };
   public onTouched = () => { };
 
   public writeValue(value: string): void {
-    this.value = value || ''; // Atualiza o valor do componente
+    this.value = value || '';
   }
 
-  public registerOnChange(fn: any): void {
-    this.onChange = fn; // Registra a função de mudança
+  public registerOnChange(fn: (value: string) => void): void {
+    this.onChange = fn;
   }
 
-  public registerOnTouched(fn: any): void {
-    this.onTouched = fn; // Registra a função de toque
-  }
-
-  public getFormError(erro: any) {
-    let erros = Object.values(erro.errors as RxFormControl)
-    return erros[0]?.message ? erros[0]?.message : 'ERRO'
-  }
-
-  // Atualiza o valor sempre que o campo muda
-  public onInputChange(event: any) {
-    this.value = event.target.value;
-    this.onChange(this.value); // Dispara a mudança de valor
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
   }
 
 }
