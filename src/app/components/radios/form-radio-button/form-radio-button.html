@@ -1,0 +1,17 @@
+<div class="form-radio-button">
+  @if (label) {
+  <label class="field-label">{{ label }}</label>
+  }
+
+  <div class="radio-input" [class.disabled]="disabled" [class.invalid]="hasError">
+    @for (item of items; track item.value) {
+    <label>
+      <input type="radio" [name]="name" [value]="item.value" [checked]="value === item.value"
+        (change)="selectItem(item.value)">
+      <span>{{ item.label }}</span>
+    </label>
+    }
+  </div>
+
+  <app-form-error [control]="control" />
+</div>
