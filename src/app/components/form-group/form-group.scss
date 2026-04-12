@@ -1,0 +1,83 @@
+.form-group-content {
+  padding: 1.5rem;
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  background: color-mix(in srgb, var(--surface-color, #101010) 90%, transparent);
+}
+
+.form-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+}
+
+.form-group-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  min-width: 0;
+}
+
+.form-group-title {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: clamp(1.25rem, 2vw, 1.75rem);
+  line-height: 1.1;
+}
+
+.form-group-subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+.form-group-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.form-group-actions ::ng-deep>[form-actions] {
+  display: flex;
+  align-items: center;
+}
+
+.form-group-actions ::ng-deep>[form-actions]>*+* {
+  margin-left: 1rem;
+}
+
+.form-group-actions:empty {
+  display: none;
+}
+
+.form-group-divider {
+  margin: 1rem 0 1.25rem;
+  border: 0;
+  border-top: 0.15rem solid var(--secondary-dark-color);
+  border-radius: var(--border-radius);
+  opacity: 1;
+}
+
+.form-group-body {
+  min-width: 0;
+}
+
+@media (max-width: 768px) {
+  .form-group-content {
+    padding: 1rem;
+  }
+
+  .form-group-header {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .form-group-actions {
+    justify-content: flex-start;
+  }
+}
