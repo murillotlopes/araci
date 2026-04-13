@@ -2,9 +2,9 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { InputPassword } from '../../../components/input-password/input-password';
-import { InputText } from '../../../components/input-text/input-text';
 import { UserService } from '../../../services/user/user.service';
+import { InputPassword } from '../../../ui/forms/inputs/input-password/input-password';
+import { InputText } from '../../../ui/forms/inputs/input-text/input-text';
 import { FormResource } from '../../shared/form-resource';
 
 @Component({

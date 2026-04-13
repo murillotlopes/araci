@@ -1,16 +1,16 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { BackButton } from '../../../components/buttons/back-button/back-button';
-import { ClearButton } from '../../../components/buttons/clear-button/clear-button';
-import { DefaultButton } from '../../../components/buttons/default-button/default-button';
-import { FormGroupComponent } from '../../../components/form-group/form-group';
-import { SaveButton } from '../../../components/buttons/save-button/save-button';
-import { FormInputText } from '../../../components/form-input-text/form-input-text';
-import { FormRadioButton } from '../../../components/radios/form-radio-button/form-radio-button';
-import { TabPane } from '../../../components/tabs-nav/tab-pane/tab-pane';
-import { TabsNav } from '../../../components/tabs-nav/tabs-nav';
 import { AuthService } from '../../../services/auth/auth.service';
+import { BackButton } from '../../../ui/buttons/back-button/back-button';
+import { ClearButton } from '../../../ui/buttons/clear-button/clear-button';
+import { DefaultButton } from '../../../ui/buttons/default-button/default-button';
+import { SaveButton } from '../../../ui/buttons/save-button/save-button';
+import { FormGroupComponent } from '../../../ui/forms/form-group/form-group';
+import { FormInputText } from '../../../ui/forms/inputs/form-input-text/form-input-text';
+import { FormRadioButton } from '../../../ui/forms/radios/form-radio-button/form-radio-button';
+import { TabPane } from '../../../ui/navigation/tabs-nav/tab-pane/tab-pane';
+import { TabsNav } from '../../../ui/navigation/tabs-nav/tabs-nav';
 import { FormResource } from '../../shared/form-resource';
 
 @Component({

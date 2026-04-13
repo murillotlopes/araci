@@ -1,7 +1,7 @@
 import { Component, Input, Optional, Self } from '@angular/core';
 import { AbstractControl, FormGroup, FormsModule, NgControl, ReactiveFormsModule } from '@angular/forms';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
-import { FormError } from '../forms/form-error/form-error';
+import { FormError } from '../../form-error/form-error';
 
 @Component({
   selector: 'app-form-input-text',
