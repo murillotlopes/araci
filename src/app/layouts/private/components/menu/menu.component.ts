@@ -1,7 +1,7 @@
 
 import { Component, Input } from '@angular/core';
-import { MenuInterface } from '../../../../../interfaces/menu.interface';
-import { AuthService } from '../../../../../services/auth/auth.service';
+import { MenuInterface } from '../../../../interfaces/menu.interface';
+import { AuthService } from '../../../../services/auth/auth.service';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 
 @Component({
