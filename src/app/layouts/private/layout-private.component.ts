@@ -1,12 +1,12 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './components/header/header.component';
-import { MenuComponent } from './components/menu/menu.component';
+import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-layout-private',
   standalone: true,
-  imports: [MenuComponent, HeaderComponent, RouterOutlet],
+  imports: [SidebarComponent, HeaderComponent, RouterOutlet],
   templateUrl: './layout-private.component.html',
   styleUrl: './layout-private.component.scss'
 })

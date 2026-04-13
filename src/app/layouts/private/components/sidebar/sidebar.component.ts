@@ -5,13 +5,13 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 
 @Component({
-  selector: 'app-menu',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [MenuItemComponent],
-  templateUrl: './menu.component.html',
-  styleUrl: './menu.component.scss'
+  templateUrl: './sidebar.component.html',
+  styleUrl: './sidebar.component.scss'
 })
-export class MenuComponent {
+export class SidebarComponent {
   @Input() isCollapsed!: boolean
   @Input() isHovered!: boolean
   @Input() childrenIdList!: string[]
