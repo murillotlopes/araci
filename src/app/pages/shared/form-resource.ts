@@ -39,4 +39,8 @@ export abstract class FormResource {
     this.afterSubmitForm()
   }
 
+  clearForm() {
+    this.createFormFields()
+  }
+
 }
