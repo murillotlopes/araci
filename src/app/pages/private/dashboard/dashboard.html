@@ -1,1 +1,70 @@
-<p>dashboard works!</p>
+<main class="container-main">
+  <app-form-group [formGroup]="formGroup" title="Dashboard" subtitle="Prova de conceito"
+    (formSubmit)="submitForm($event)">
+    <div form-actions>
+      <app-save-button [formGroup]="formGroup" />
+      <app-clear-button (clearForm)="clearForm()" />
+      <app-back-button [formGroup]="formGroup" />
+    </div>
+
+    <app-tabs-nav>
+
+      <app-tab-pane activeId="dados-pessoais" label="Dados Pessoais">
+        <div class="row">
+
+
+          <div class="col-12">
+            <app-form-input-text formControlName="name" [formGroup]="formGroup" label="Seu nome"
+              placeholder="Nome completo por favor" />
+          </div>
+          <div class="col-3">
+            <app-form-input-text formControlName="phone" [formGroup]="formGroup" label="Telefone"
+              placeholder="Um telefone de contato**" />
+          </div>
+          <div class="col-3">
+            <app-form-input-text formControlName="who_is_your_self" [formGroup]="formGroup" label="Quem sou eu"
+              placeholder="A resposta mais importante" />
+          </div>
+          <div class="col-3">
+            <app-form-radio-button formControlName="raradio" [formGroup]="formGroup" label="Rádio"
+              [items]="[{label: 'AAA', value: 'aaa'}, {label: 'BBB', value: 'bbb'}, {label: 'Treta', value: 'treta'}]" />
+          </div>
+          <div class="col-3">
+            <app-form-input-text formControlName="who_is_you" [formGroup]="formGroup" label="Quem é você"
+              placeholder="Conheça o outro a sua frente" />
+          </div>
+
+          <div>
+            <app-default-button (externalFunction)="testCrazy()">
+              <i class="fa-solid fa-bolt-lightning"></i>
+              Loucura
+            </app-default-button>
+          </div>
+
+        </div>
+      </app-tab-pane>
+
+      <app-tab-pane activeId="contatos" label="Contatos">
+        <div>
+          <app-form-radio-button formControlName="raradio" [formGroup]="formGroup" label="Rádio"
+            [items]="[{label: 'AAA', value: 'aaa'}, {label: 'BBB', value: 'bbb'}, {label: 'Treta', value: 'treta'}]" />
+        </div>
+      </app-tab-pane>
+
+      <app-tab-pane activeId="enderecos" label="Endereços">
+        <h3>Endereços</h3>
+        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt tempore ratione iusto inventore perspiciatis
+          esse repellendus alias aspernatur eligendi corporis! Nemo aut fugiat quos ducimus odio velit corporis quam
+          explicabo.</p>
+      </app-tab-pane>
+
+      <app-tab-pane activeId="documentos" label="Documentos">
+        <h3>Documentos</h3>
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error maxime quam inventore laboriosam nostrum
+          totam, nulla laudantium libero amet iste explicabo distinctio at aperiam nihil! Quo cum possimus corrupti
+          maiores?</p>
+      </app-tab-pane>
+
+    </app-tabs-nav>
+  </app-form-group>
+</main>
