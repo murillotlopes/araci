@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { LayoutPublic } from './components/layouts/public/layout';
 import { PrivateGuard } from './guards/private-guard';
 import { PublicGuard } from './guards/public-guard-guard';
 import { LayoutPrivate } from './layouts/private/layout-private.component';
+import { LayoutPublic } from './layouts/public/layout';
 import { Dashboard } from './pages/private/dashboard/dashboard';
 import { Home } from './pages/public/home/home';
 import { Login } from './pages/public/login/login';
