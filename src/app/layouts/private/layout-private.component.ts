@@ -1,7 +1,7 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../../ui/navigation/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
-import { SidebarComponent } from './components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-layout-private',
