@@ -1,0 +1,90 @@
+.form-radio {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  .radio-input {
+    width: 100%;
+    min-height: 2.35rem;
+    padding: 0.3rem 0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    background-color: rgba(250, 250, 250, 0.1);
+    color: var(--text-color);
+    cursor: pointer;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+    &:has(input:focus-visible) {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 20%, transparent);
+    }
+
+    &:has(input:checked) {
+      border-color: var(--secondary-dark-color);
+      background-color: color-mix(in srgb, var(--secondary-dark-color) 18%, transparent);
+
+      .radio-control {
+        border-color: var(--secondary-dark-color);
+      }
+
+      .radio-control::after {
+        transform: scale(1);
+        background-color: var(--secondary-dark-color);
+      }
+
+      .radio-label {
+        color: var(--text-color);
+      }
+    }
+
+    &.invalid {
+      border-color: var(--error-color);
+    }
+
+    &.disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+  }
+
+  .radio-control {
+    width: 1.25rem;
+    min-width: 1.25rem;
+    height: 1.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--primary-color);
+    border-radius: 50%;
+    background-color: transparent;
+    transition: border-color 0.2s ease;
+
+    &::after {
+      content: '';
+      width: 0.65rem;
+      height: 0.65rem;
+      border-radius: 50%;
+      transform: scale(0);
+      transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+  }
+
+  .radio-label {
+    font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.2;
+    color: var(--primary-color);
+    transition: color 0.2s ease;
+  }
+}
