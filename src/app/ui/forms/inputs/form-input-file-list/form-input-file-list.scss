@@ -1,0 +1,239 @@
+.form-input-file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+
+  label {
+    color: var(--primary-color);
+    font-size: 1rem;
+    font-weight: 600;
+  }
+}
+
+.file-dropzone,
+.file-item {
+  border: 2px solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: rgba(250, 250, 250, 0.1);
+  color: var(--text-color);
+}
+
+.file-dropzone {
+  position: relative;
+  padding: 1rem;
+  border-style: dashed;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
+
+  input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  &.dragging {
+    border-color: var(--primary-color);
+    background-color: color-mix(in srgb, var(--primary-color) 8%, transparent);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 20%, transparent);
+  }
+
+  &.invalid {
+    border-color: var(--error-color);
+  }
+
+  &.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+.dropzone-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+}
+
+.dropzone-icon,
+.file-thumb {
+  display: grid;
+  place-items: center;
+  border-radius: var(--border-radius);
+  color: var(--primary-color);
+  background-color: color-mix(in srgb, var(--primary-color) 10%, transparent);
+}
+
+.dropzone-icon {
+  width: 2.75rem;
+  height: 2.75rem;
+  flex: 0 0 2.75rem;
+  font-size: 1.35rem;
+}
+
+.dropzone-text,
+.file-info {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.dropzone-text {
+  flex: 1 1 auto;
+  gap: 0.1rem;
+
+  strong,
+  span {
+    overflow-wrap: anywhere;
+  }
+
+  strong {
+    font-size: 1rem;
+    line-height: 1.25;
+  }
+
+  span {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+  }
+}
+
+.file-picker-button,
+.file-remove-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background-color: #ffffff00;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 600;
+
+  &:hover:not(:disabled) {
+    background-color: var(--primary-color);
+    color: var(--surface-color);
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+}
+
+.file-picker-button {
+  gap: 0.4rem;
+  min-height: 2.25rem;
+  padding: 0.3rem 0.6rem;
+  flex: 0 0 auto;
+  font-size: 0.95rem;
+  white-space: nowrap;
+}
+
+.file-list-errors {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  color: var(--error-color);
+  font-size: 0.85rem;
+}
+
+.file-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin: 0.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.file-item {
+  display: grid;
+  grid-template-columns: 3rem minmax(0, 1fr) 2.25rem;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 4rem;
+  padding: 0.5rem;
+}
+
+.file-thumb {
+  width: 3rem;
+  height: 3rem;
+  overflow: hidden;
+  font-size: 1.35rem;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+.file-info {
+  gap: 0.2rem;
+
+  strong {
+    overflow: hidden;
+    color: var(--text-color);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.25;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.file-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  color: var(--text-muted);
+  font-size: 0.8rem;
+}
+
+.file-status {
+  padding: 0.1rem 0.4rem;
+  border: 1px solid color-mix(in srgb, var(--alert-color) 70%, transparent);
+  border-radius: var(--border-radius);
+  color: var(--alert-color);
+  font-size: 0.75rem;
+  font-weight: 600;
+
+  &.saved {
+    border-color: color-mix(in srgb, var(--success-color) 70%, transparent);
+    color: var(--success-color);
+  }
+}
+
+.file-remove-button {
+  width: 2.25rem;
+  height: 2.25rem;
+  padding: 0;
+  border-color: var(--border-color);
+  color: var(--text-muted);
+
+  &:hover:not(:disabled) {
+    border-color: var(--error-color);
+    background-color: var(--error-color);
+  }
+}
+
+@media (max-width: 576px) {
+  .dropzone-content {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .file-picker-button {
+    width: 100%;
+  }
+
+  .file-item {
+    grid-template-columns: 2.75rem minmax(0, 1fr) 2.25rem;
+  }
+
+  .file-thumb {
+    width: 2.75rem;
+    height: 2.75rem;
+  }
+}
