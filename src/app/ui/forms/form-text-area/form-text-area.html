@@ -1,0 +1,16 @@
+<div class="form-text-area-field" [formGroup]="formGroup">
+  <label [for]="formControlName">{{ label }}</label>
+  <textarea
+    [id]="formControlName"
+    [formControlName]="formControlName"
+    [placeholder]="placeholder"
+    [rows]="rows"
+    [attr.maxlength]="maxlength ?? null"
+    [attr.minlength]="minlength ?? null"
+    [class.invalid]="hasError"
+    [disabled]="disabled"
+    [readonly]="readonly"
+    [style.resize]="resize"
+  ></textarea>
+  <app-form-error [control]="control" />
+</div>
