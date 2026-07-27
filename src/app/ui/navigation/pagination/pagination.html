@@ -1,0 +1,39 @@
+<nav class="pagination" aria-label="Paginação">
+  <div class="pagination__summary" aria-live="polite">
+    <span class="pagination__range">{{ firstItem }}-{{ lastItem }}</span>
+    <span>de {{ totalCount }} itens</span>
+  </div>
+
+  <div class="pagination__controls">
+    <label class="pagination__field pagination__field--size" for="itemsPerPage">
+      <span>Itens por página</span>
+      <select id="itemsPerPage" [value]="normalizedItemsPerPage" [disabled]="disabled"
+        (change)="onItemsPerPageChange($event)">
+        @for (option of pageSizeOptions; track option) {
+        <option [value]="option" [selected]="option === normalizedItemsPerPage">{{ option }}</option>
+        }
+      </select>
+    </label>
+
+    <div class="pagination__page-control">
+      <button type="button" class="pagination__button" title="Página anterior" aria-label="Página anterior"
+        [disabled]="!canGoBack" (click)="goToPreviousPage()">
+        <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
+      </button>
+
+      <label class="pagination__field pagination__field--page" for="currentPage">
+        <span>Página</span>
+        <input id="currentPage" type="number" inputmode="numeric" min="1" [max]="totalPages" [value]="pageInputValue"
+          [disabled]="disabled" (input)="onPageInput($event)" (blur)="commitPageInput()"
+          (keydown.enter)="commitPageInput()">
+      </label>
+
+      <span class="pagination__total-pages">de {{ totalPages }}</span>
+
+      <button type="button" class="pagination__button" title="Próxima página" aria-label="Próxima página"
+        [disabled]="!canGoForward" (click)="goToNextPage()">
+        <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
+      </button>
+    </div>
+  </div>
+</nav>
