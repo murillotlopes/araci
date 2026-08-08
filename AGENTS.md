@@ -6,11 +6,15 @@
   `package-lock.json` as the source of truth; do not rely on the version mentioned in the README.
 - The application uses standalone components, strict TypeScript, strict Angular templates, SCSS,
   Bootstrap, RxJS, reactive forms, and functional application providers.
-- Keep cross-cutting application infrastructure under `src/app/core`, project-domain features under
-  `src/app/projects`, reusable presentation components under `src/app/shared/ui`, and shared form
-  behavior under `src/app/shared/forms`. Existing pages and layouts remain in their legacy folders
-  until their area migration is requested; do not add new top-level `services` or `requests`
-  abstractions.
+- `src/app` contains only `core`, `projects`, and `shared`. Keep application bootstrap and global
+  providers under `core/bootstrap`, cross-cutting infrastructure under the remaining `core`
+  folders, deployable application areas under `projects`, reusable presentation components under
+  `shared/ui`, and shared form behavior under `shared/forms`. Do not add new top-level technical
+  folders such as `pages`, `layouts`, `services`, `requests`, `guards`, or `interfaces`.
+- `projects/web` and `projects/admin` are independent application areas. Each owns its public and
+  private pages, layouts, routes, guards, navigation, APIs, facades, and business behavior. Do not
+  import a web-specific implementation into admin or an admin-specific implementation into web;
+  extract only genuinely area-neutral behavior into `core` or `shared`.
 - Preserve unrelated user changes and follow the naming and file organization of the surrounding
   feature unless a requested refactor intentionally changes that convention.
 
@@ -24,6 +28,13 @@
 - Keep components focused. Put reusable UI behavior in `src/app/shared/ui`, reusable form behavior
   in `src/app/shared/forms`, domain APIs and application behavior with their owning feature, and
   route-level composition in pages and layouts.
+- Organize feature internals by responsibility only when those responsibilities exist: `data-access`
+  for typed API clients and DTOs, `application` for use cases or facades that coordinate behavior,
+  `pages` for routed composition, and `ui` for feature-specific presentation. Do not create empty
+  layers or one-file pass-through services.
+- Name API methods after the documented backend action. Let API methods return typed `Observable`s;
+  keep navigation, notifications, page state, and multi-step orchestration in a facade or use case.
+  Prefer pure functions for calculations and mappings that require neither DI nor state.
 - Prefer standalone imports, `inject()` for new dependency injection, signals for synchronous local
   state, computed values for derived state, and native template control flow (`@if`, `@for`,
   `@switch`). Use RxJS for asynchronous streams and cancellation where it is the clearer model.

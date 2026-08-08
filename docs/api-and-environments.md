@@ -29,7 +29,7 @@ configuration. These files are shipped to the browser and must never contain sec
 | --- | --- | --- |
 | development | `http://localhost:4000` | `npm run build:development` |
 | sandbox | `https://sandbox.smart.pin` | `npm run build:sandbox` |
-| homologation | `https://homologação.smart.pin` | `npm run build:homologation` |
+| homologation | `https://homologation.smart.pin` | `npm run build:homologation` |
 | production | `https://smart.pin` | `npm run build:production` |
 
 For a local development server, use `npm start`, `npm run start:sandbox`,
