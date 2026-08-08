@@ -26,12 +26,43 @@
               placeholder="A resposta mais importante" />
           </div>
           <div class="col-3">
-            <app-form-radio-button formControlName="raradio" [formGroup]="formGroup" label="Rádio"
+            <app-form-radio-button formControlName="raradio" [formGroup]="formGroup" label="Botão de Rádio"
               [items]="[{label: 'AAA', value: 'aaa'}, {label: 'BBB', value: 'bbb'}, {label: 'Treta', value: 'treta'}]" />
           </div>
           <div class="col-3">
             <app-form-input-text formControlName="who_is_you" [formGroup]="formGroup" label="Quem é você"
               placeholder="Conheça o outro a sua frente" />
+          </div>
+
+          <div class="col-3">
+            <app-form-select formControlName="favorite_option" [formGroup]="formGroup" label="Seleção em Lista"
+              [options]="[{label: 'Opção A', value: 'a'}, {label: 'Opção B', value: 'b'}, {label: 'Opção C', value: 'c'}]" />
+          </div>
+
+          <div class="col-3">
+            <app-form-input-toggle-switch formControlName="toggle" [formGroup]="formGroup" label="Sou um form toggle"
+              onLabel="Ativado" offLabel="Desativado" />
+          </div>
+
+          <div class="col-3">
+            <app-form-input-toggle-switch formControlName="toggle_b" [formGroup]="formGroup"
+              placeholder="Sou toggle solitário" onLabel="Ativado" offLabel="Desativado" />
+          </div>
+
+          <div class="col-3">
+            <app-form-input-toggle-switch formControlName="toggle_c" [formGroup]="formGroup"
+              label="Sou form com placeholder" placeholder="Uma opção padrão" onLabel="Ativado" offLabel="Desativado" />
+          </div>
+
+          <div class="col-3">
+            <app-form-radio formControlName="radio" [formGroup]="formGroup" label="AAA" value="aaa" />
+            <app-form-radio formControlName="radio" [formGroup]="formGroup" label="BBB" value="bbb" />
+            <app-form-radio formControlName="radio" [formGroup]="formGroup" label="Treta" value="treta" showError />
+          </div>
+
+          <div class="col-3">
+            <app-form-checkbox formControlName="checkbox" [formGroup]="formGroup" label="Sou checkbox"
+              [items]="[{label: 'AAA', value: 'aaa'}, {label: 'BBB', value: 'bbb'}, {label: 'CCC', value: 'ccc'}, {label: 'DDD', value: 'ddd'}]" />
           </div>
 
           <div>
@@ -56,6 +87,12 @@
         <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. Sunt tempore ratione iusto inventore perspiciatis
           esse repellendus alias aspernatur eligendi corporis! Nemo aut fugiat quos ducimus odio velit corporis quam
           explicabo.</p>
+
+        <div class="row">
+          <div class="col-4">
+            <app-pagination [totalItems]="100" [currentPage]="2" />
+          </div>
+        </div>
       </app-tab-pane>
 
       <app-tab-pane activeId="documentos" label="Documentos">
@@ -63,6 +100,37 @@
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Error maxime quam inventore laboriosam nostrum
           totam, nulla laudantium libero amet iste explicabo distinctio at aperiam nihil! Quo cum possimus corrupti
           maiores?</p>
+
+        <div class="row">
+          <div class="col-12">
+            <app-form-text-area formControlName="textArea" [formGroup]="formGroup" label="Observações"
+              placeholder="Digite uma observação" />
+          </div>
+
+          <div class="col-12">
+            <app-form-input-file-list formControlName="fileList" [formGroup]="formGroup" label="Arquivos"
+              accept=".pdf,image/*" [maxFileSize]="5242880" />
+          </div>
+
+          <div class="col-12">
+            <app-form-input-file formControlName="documents" [formGroup]="formGroup" label="Documentos obrigatórios"
+              [items]="[
+                { key: 'curriculo', label: 'Currículo', accept: '.pdf,.doc,.docx', maxFileSize: 5242880 },
+                { key: 'comprovante-endereco', label: 'Comprovante de endereço', accept: '.pdf,image/*', maxFileSize: 3145728 },
+                { key: 'documento-foto', label: 'Documento com foto', accept: '.pdf,image/*', maxFileSize: 5242880 }
+              ]" />
+          </div>
+        </div>
+
+
+      </app-tab-pane>
+
+      <app-tab-pane activeId="skeleton-form" label="Skeleton Form">
+        <app-skeleton-form></app-skeleton-form>
+      </app-tab-pane>
+
+      <app-tab-pane activeId="skeleton-list" label="Skeleton List">
+        <app-skeleton-list />
       </app-tab-pane>
 
     </app-tabs-nav>

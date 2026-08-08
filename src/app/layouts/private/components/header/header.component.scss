@@ -3,12 +3,13 @@
   color: var(--text-color);
   box-shadow: var(--shadow-md);
   height: 4rem;
-  padding: 1rem;
+  padding: var(--space-4);
 
   div {
     display: flex;
+    align-items: center;
     justify-content: end;
-    margin-right: 1.5rem;
+    overflow-x: auto;
   }
 
   i {
@@ -18,10 +19,16 @@
 
 .nav-link {
   color: var(--text-color);
-  margin: 0 0.5rem;
-  transition: color 0.2s;
+  margin: 0 var(--space-2);
+  transition: color var(--transition-fast);
 
   &:hover {
     color: var(--primary-color);
+  }
+}
+
+@media (min-width: 48rem) {
+  .header-content div {
+    margin-right: var(--space-6);
   }
 }

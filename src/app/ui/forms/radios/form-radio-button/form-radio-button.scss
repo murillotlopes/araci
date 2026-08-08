@@ -1,15 +1,4 @@
 .form-radio-button {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-
-  .field-label {
-    font-size: 1rem;
-    color: var(--primary-color);
-    font-weight: 600;
-    transition: color 0.2s ease;
-  }
-
   .radio-input {
     display: flex;
     justify-content: center;
@@ -18,7 +7,7 @@
     flex-wrap: wrap;
     min-height: 2.35rem;
     border: 2px solid var(--border-color);
-    background-color: rgba(250, 250, 250, 0.1);
+    background-color: var(--surface-subtle-color);
     border-radius: var(--border-radius);
     transition: border-color 0.2s ease, box-shadow 0.2s ease, background-color 0.2s ease;
 

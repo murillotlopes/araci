@@ -1,12 +1,12 @@
 .custom-header {
   background-color: var(--surface-color);
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transition-base);
 }
 
 .nav-link {
   color: var(--text-color);
-  margin: 0 0.5rem;
-  transition: color 0.2s;
+  margin: 0 var(--space-2);
+  transition: color var(--transition-fast);
 
   &:hover {
     color: var(--primary-color);
@@ -17,7 +17,7 @@
   border: none;
   background: transparent;
   color: var(--text-color);
-  font-size: 1.2rem;
+  font-size: var(--font-size-lg);
 
   &:hover {
     color: var(--primary-color);

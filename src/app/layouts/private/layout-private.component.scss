@@ -1,25 +1,32 @@
 .layout-content {
-  min-width: 100vw;
+  width: 100%;
   min-height: 100vh;
   display: flex;
 }
 
 .sidebar {
-  width: 17rem;
+  position: relative;
+  z-index: 10;
+  width: 5rem;
+  flex: 0 0 auto;
   background-color: var(--background-color);
   color: var(--white-primary);
   transition: width 0.3s;
   box-shadow: var(--shadow-md);
 
   .sandwich-menu {
-    margin: 10px;
-    padding: 10px;
-    border-radius: 10px;
+    margin: var(--space-2);
+    padding: var(--space-2);
+    border-radius: var(--border-radius);
     cursor: pointer;
     text-align: center;
     color: var(--primary-color);
     font-weight: bolder;
-    font-size: 1.2rem;
+    font-size: var(--font-size-lg);
+
+    span {
+      display: none;
+    }
   }
 
   &.collapsed {
@@ -41,9 +48,20 @@
 
 .main-content {
   width: 100%;
+  min-width: 0;
 }
 
-.sidebar.sandwich-menu {
+.sidebar .sandwich-menu {
   display: flex;
   align-items: center;
+}
+
+@media (min-width: 62rem) {
+  .sidebar:not(.collapsed) {
+    width: 17rem;
+
+    .sandwich-menu span {
+      display: inline;
+    }
+  }
 }

@@ -16,8 +16,14 @@
     </label>
 
     <div class="pagination__page-control">
-      <button type="button" class="pagination__button" title="Página anterior" aria-label="Página anterior"
-        [disabled]="!canGoBack" (click)="goToPreviousPage()">
+      <button
+        type="button"
+        class="app-button app-button--primary pagination__button"
+        title="Página anterior"
+        aria-label="Página anterior"
+        [disabled]="!canGoBack"
+        (click)="goToPreviousPage()"
+      >
         <i class="fa-solid fa-chevron-left" aria-hidden="true"></i>
       </button>
 
@@ -30,8 +36,14 @@
 
       <span class="pagination__total-pages">de {{ totalPages }}</span>
 
-      <button type="button" class="pagination__button" title="Próxima página" aria-label="Próxima página"
-        [disabled]="!canGoForward" (click)="goToNextPage()">
+      <button
+        type="button"
+        class="app-button app-button--primary pagination__button"
+        title="Próxima página"
+        aria-label="Próxima página"
+        [disabled]="!canGoForward"
+        (click)="goToNextPage()"
+      >
         <i class="fa-solid fa-chevron-right" aria-hidden="true"></i>
       </button>
     </div>

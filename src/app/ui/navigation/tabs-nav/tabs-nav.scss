@@ -9,14 +9,15 @@
 
     .tab-item {
       color: var(--primary-color);
-      padding: 12px 24px;
-      margin-right: 0.5rem;
+      flex: 0 0 auto;
+      padding: var(--space-3) var(--space-4);
+      margin-right: var(--space-2);
       cursor: pointer;
       font-weight: 600;
       border-bottom: 2px solid transparent;
       margin-bottom: -2px;
-      transition: all 0.2s ease-in-out;
-      border-radius: var(--border-radius) var(--border-radius) 0px 0px;
+      transition: all var(--transition-fast);
+      border-radius: var(--border-radius) var(--border-radius) 0 0;
       border: 1px solid var(--primary-color);
 
       &.active {
@@ -34,13 +35,25 @@
   }
 
   .tabs-content {
-    padding: 1.5rem;
+    padding: var(--space-4);
     border: 1px solid var(--primary-color);
-    border-radius: 0px 0px var(--border-radius) var(--border-radius);
+    border-radius: 0 0 var(--border-radius) var(--border-radius);
     border-top: none;
 
     .tab-pane {
       animation: fadeIn 0.3s forwards;
+    }
+  }
+}
+
+@media (min-width: 48rem) {
+  .tabs-container {
+    .tabs-nav .tab-item {
+      padding-inline: var(--space-6);
+    }
+
+    .tabs-content {
+      padding: var(--space-6);
     }
   }
 }
