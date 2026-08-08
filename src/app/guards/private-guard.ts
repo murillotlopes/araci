@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
-import { MenuInterface } from '../interfaces/menu.interface';
 import { AuthService } from '../services/auth/auth.service';
+import { NavigationItem } from '../shared/ui/navigation/navigation-item';
 
 @Injectable({
   providedIn: 'root',
@@ -37,7 +37,7 @@ export class PrivateGuard implements CanActivate {
 
     if (!Array.isArray(menuParse)) return this.logout()
 
-    const menuList = menuParse.flat(Infinity) as MenuInterface[]
+    const menuList = menuParse.flat(Infinity) as NavigationItem[]
 
     // Verificar se a rota acessada está presente na lista: continua ou derruba
     const menuFound = menuList.find(menu => menu.link?.includes(url))

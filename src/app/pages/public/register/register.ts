@@ -3,9 +3,9 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
 import { UserService } from '../../../services/user/user.service';
-import { InputPassword } from '../../../ui/forms/inputs/input-password/input-password';
-import { InputText } from '../../../ui/forms/inputs/input-text/input-text';
-import { FormResource } from '../../shared/form-resource';
+import { FormResource } from '../../../shared/forms/form-resource';
+import { InputPassword } from '../../../shared/ui/forms/inputs/input-password/input-password';
+import { InputText } from '../../../shared/ui/forms/inputs/input-text/input-text';
 
 @Component({
   selector: 'app-register',

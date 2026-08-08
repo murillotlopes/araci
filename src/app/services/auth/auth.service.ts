@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { throwError } from 'rxjs'
-import { MenuInterface } from '../../interfaces/menu.interface'
 import { AuthRequest } from '../../requests/auth/auth.request'
+import { NavigationItem } from '../../shared/ui/navigation/navigation-item'
 import { BaseService } from '../shared/base.service'
 
 @Injectable({
@@ -29,7 +29,7 @@ export class AuthService extends BaseService {
         sessionStorage.setItem('@pin_expiresIn', `${expiresIn}`)
         sessionStorage.setItem('@pin_authType', authType)
 
-        const menuNavigate: MenuInterface[] = [
+        const menuNavigate: NavigationItem[] = [
           {
             name: 'Área do usuário',
             link: '/user',

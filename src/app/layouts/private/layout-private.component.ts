@@ -1,6 +1,8 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { SidebarComponent } from '../../ui/navigation/sidebar/sidebar.component';
+import { AuthService } from '../../services/auth/auth.service';
+import { NavigationItem } from '../../shared/ui/navigation/navigation-item';
+import { SidebarComponent } from '../../shared/ui/navigation/sidebar/sidebar.component';
 import { HeaderComponent } from './components/header/header.component';
 
 @Component({
@@ -14,10 +16,32 @@ export class LayoutPrivate {
   isCollapsed = false;
   isHovered = false;
   childrenIdList: string[] = []
+  menu: NavigationItem[] = []
 
   constructor(
-    private renderer: Renderer2
-  ) { }
+    private renderer: Renderer2,
+    private authService: AuthService
+  ) {
+    this.menu = this.getMenu()
+  }
+
+  private getMenu(): NavigationItem[] {
+    const storedMenu = sessionStorage.getItem('@pin_menu')
+
+    if (!storedMenu) {
+      this.authService.logout()
+      return []
+    }
+
+    const parsedMenu: unknown = JSON.parse(storedMenu)
+
+    if (!Array.isArray(parsedMenu)) {
+      this.authService.logout()
+      return []
+    }
+
+    return parsedMenu as NavigationItem[]
+  }
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;

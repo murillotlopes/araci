@@ -8,7 +8,8 @@
   Bootstrap, RxJS, reactive forms, and functional application providers.
 - Keep public pages under `src/app/pages/public`, authenticated pages under
   `src/app/pages/private`, layouts under `src/app/layouts`, reusable presentation components under
-  `src/app/ui`, and API access under `src/app/services` and `src/app/requests`.
+  `src/app/shared/ui`, shared form behavior under `src/app/shared/forms`, and API access under
+  `src/app/services` and `src/app/requests`.
 - Preserve unrelated user changes and follow the naming and file organization of the surrounding
   feature unless a requested refactor intentionally changes that convention.
 
@@ -19,8 +20,9 @@
   Angular behavior is uncertain.
 - Prefer current APIs supported by the installed Angular version. Do not introduce APIs from a newer
   Angular release without upgrading the project explicitly.
-- Keep components focused. Put reusable UI behavior in `src/app/ui`, business or API behavior in a
-  service, and route-level composition in pages and layouts.
+- Keep components focused. Put reusable UI behavior in `src/app/shared/ui`, reusable form behavior
+  in `src/app/shared/forms`, business or API behavior in a service, and route-level composition in
+  pages and layouts.
 - Prefer standalone imports, `inject()` for new dependency injection, signals for synchronous local
   state, computed values for derived state, and native template control flow (`@if`, `@for`,
   `@switch`). Use RxJS for asynchronous streams and cancellation where it is the clearer model.
