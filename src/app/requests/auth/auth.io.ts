@@ -8,6 +8,6 @@ export interface AuthLoginInput {
 export interface AuthLoginOutput {
   accessToken: string,
   expiresIn: number,
-  authType: 'Bearer Token'
+  authType: string
   // menu: Menu[]
 }

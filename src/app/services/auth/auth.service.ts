@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core'
 import { Router } from '@angular/router'
 import { ToastrService } from 'ngx-toastr'
 import { throwError } from 'rxjs'
+import { WebSessionService } from '../../core/auth/session/web-session.service'
 import { AuthRequest } from '../../requests/auth/auth.request'
 import { NavigationItem } from '../../shared/ui/navigation/navigation-item'
 import { BaseService } from '../shared/base.service'
@@ -13,6 +14,7 @@ export class AuthService extends BaseService {
 
   constructor(
     private authRequest: AuthRequest,
+    private webSession: WebSessionService,
     router: Router,
     toastr: ToastrService
   ) {
@@ -25,9 +27,7 @@ export class AuthService extends BaseService {
       next: (res => {
         const { accessToken, authType, expiresIn } = res
 
-        sessionStorage.setItem('@pin_token', accessToken)
-        sessionStorage.setItem('@pin_expiresIn', `${expiresIn}`)
-        sessionStorage.setItem('@pin_authType', authType)
+        this.webSession.save({ accessToken, expiresIn, authType })
 
         const menuNavigate: NavigationItem[] = [
           {
@@ -119,7 +119,7 @@ export class AuthService extends BaseService {
           }
         ]
 
-        sessionStorage.setItem('@pin_menu', JSON.stringify(menuNavigate))
+        this.webSession.saveNavigation(menuNavigate)
 
         this.router.navigate(['dashboard'])
         this.toastr.success('Seja bem vindo!')
@@ -132,7 +132,7 @@ export class AuthService extends BaseService {
   }
 
   public logout(): void {
-    sessionStorage.clear()
+    this.webSession.clear()
     this.router.navigate(['login'])
   }
 

@@ -1,5 +1,6 @@
 import { Component, Renderer2 } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { WebSessionService } from '../../core/auth/session/web-session.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { NavigationItem } from '../../shared/ui/navigation/navigation-item';
 import { SidebarComponent } from '../../shared/ui/navigation/sidebar/sidebar.component';
@@ -20,27 +21,21 @@ export class LayoutPrivate {
 
   constructor(
     private renderer: Renderer2,
-    private authService: AuthService
+    private authService: AuthService,
+    private webSession: WebSessionService
   ) {
     this.menu = this.getMenu()
   }
 
   private getMenu(): NavigationItem[] {
-    const storedMenu = sessionStorage.getItem('@pin_menu')
+    const navigation = this.webSession.getNavigation<NavigationItem>()
 
-    if (!storedMenu) {
+    if (!navigation) {
       this.authService.logout()
       return []
     }
 
-    const parsedMenu: unknown = JSON.parse(storedMenu)
-
-    if (!Array.isArray(parsedMenu)) {
-      this.authService.logout()
-      return []
-    }
-
-    return parsedMenu as NavigationItem[]
+    return navigation
   }
 
   toggleSidebar() {

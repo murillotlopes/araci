@@ -1,7 +1,7 @@
 import { AppEnvironment } from '../app/core/config/app-environment';
 
 export const environment = {
-  name: 'development',
+  name: 'sandbox',
   production: false,
-  apiBaseUrl: 'http://localhost:4000',
+  apiBaseUrl: 'https://sandbox.smart.pin',
 } satisfies AppEnvironment;

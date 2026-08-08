@@ -4,7 +4,14 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start:sandbox": "ng serve --configuration sandbox",
+    "start:homologation": "ng serve --configuration homologation",
+    "start:production": "ng serve --configuration production",
     "build": "ng build",
+    "build:development": "ng build --configuration development",
+    "build:sandbox": "ng build --configuration sandbox",
+    "build:homologation": "ng build --configuration homologation",
+    "build:production": "ng build --configuration production",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },

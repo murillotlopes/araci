@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from '@angular/router';
-import { ToastrService } from 'ngx-toastr';
+import { ActivatedRouteSnapshot, CanActivate, RouterStateSnapshot } from '@angular/router';
+import { WebSessionService } from '../core/auth/session/web-session.service';
 import { AuthService } from '../services/auth/auth.service';
 import { NavigationItem } from '../shared/ui/navigation/navigation-item';
 
@@ -9,9 +9,8 @@ import { NavigationItem } from '../shared/ui/navigation/navigation-item';
 })
 export class PrivateGuard implements CanActivate {
   constructor(
-    private router: Router,
-    private toastr: ToastrService,
-    private authService: AuthService
+    private authService: AuthService,
+    private webSession: WebSessionService
   ) { }
 
   canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
@@ -28,14 +27,9 @@ export class PrivateGuard implements CanActivate {
     if (url === '/dashboard') return true
 
     // Recuperar o menu
-    const menu = sessionStorage.getItem('@pin_menu')
+    const menuParse = this.webSession.getNavigation<NavigationItem>()
 
-    if (!menu) return this.logout()
-
-    // Transformar em lista sem niveis
-    const menuParse = JSON.parse(menu)
-
-    if (!Array.isArray(menuParse)) return this.logout()
+    if (!menuParse) return this.logout()
 
     const menuList = menuParse.flat(Infinity) as NavigationItem[]
 
