@@ -1,4 +1,4 @@
-import { Component, Renderer2 } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { WebSessionService } from '../../../../core/auth/session/web-session.service';
 import { NavigationItem } from '../../../../shared/ui/navigation/navigation-item';
@@ -14,13 +14,11 @@ import { WebPrivateHeader } from './components/header/web-private-header';
   styleUrl: './web-private-layout.scss'
 })
 export class WebPrivateLayout {
-  isCollapsed = false;
+  isCollapsed = typeof window === 'undefined' || !window.matchMedia('(min-width: 62rem)').matches;
   isHovered = false;
-  childrenIdList: string[] = []
   menu: NavigationItem[] = []
 
   constructor(
-    private renderer: Renderer2,
     private authFacade: WebAuthFacade,
     private webSession: WebSessionService
   ) {
@@ -44,31 +42,6 @@ export class WebPrivateLayout {
 
   hoverSidebar(isHovered: boolean) {
     this.isHovered = isHovered;
-
-    if (this.isCollapsed && !this.isHovered) {
-      this.childrenIdList.forEach(id => {
-
-        this.addClassByAriaControls(id)
-        this.addClassById(id)
-      })
-
-    }
-
-  }
-
-  addClassById(elementId: string): void {
-    const element = document.getElementById(elementId);
-    if (element) {
-      this.renderer.removeClass(element, 'show')
-    }
-  }
-
-  addClassByAriaControls(ariaControls: string): void {
-    const element = document.querySelector(`[aria-controls="${ariaControls}"]`);
-    if (element) {
-      this.renderer.addClass(element, 'collapsed');
-      this.renderer.setAttribute(element, 'aria-expanded', 'false')
-    }
   }
 
 }

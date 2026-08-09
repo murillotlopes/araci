@@ -109,3 +109,22 @@ necessidade real, ela deve ser estendida semanticamente e documentada aqui.
 Todo componente novo deve ser comparado com telas e componentes adjacentes antes da entrega. A
 paleta, o dark de contraste suave, a tipografia, os espaçamentos, as bordas, os estados interativos e
 a progressão mobile-first precisam permanecer coerentes com o restante do Araci.
+
+## Navegação lateral
+
+A sidebar compartilhada não depende do accordion ou do JavaScript do Bootstrap. Sua hierarquia usa
+listas e botões de disclosure nativos:
+
+- itens de primeiro nível possuem maior peso tipográfico e símbolo sobre superfície tonal;
+- itens que abrem outros níveis sempre exibem um chevron, rotacionado quando o grupo está aberto;
+- submenus são conectados por uma linha vertical e recuo progressivo;
+- destinos finais não usam marcadores decorativos e recebem um único estado ativo;
+- itens sem ícone mostram a inicial do nome no mesmo espaço reservado aos ícones;
+- somente um grupo permanece aberto por nível; abrir um irmão fecha o ramo anterior;
+- no modo compacto, os nomes continuam no DOM e o atributo `title` identifica cada controle;
+- `aria-expanded`, `aria-controls` e `aria-current` comunicam expansão e rota ativa;
+- as animações são desativadas quando o sistema solicita `prefers-reduced-motion`.
+
+As cores de repouso, hover e seleção da navegação seguem o contrato visual de `tabs-nav`: cor
+primária no repouso, fundo primário no hover e fundo secundário escuro na seleção. A sidebar não
+reaproveita as bordas específicas das abas. Não adicione cores literais ao SCSS da sidebar.

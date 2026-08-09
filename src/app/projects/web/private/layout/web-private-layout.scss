@@ -1,67 +1,141 @@
 .layout-content {
+  --sidebar-collapsed-width: 4.75rem;
+  --sidebar-expanded-width: 18rem;
+
+  position: relative;
+  display: flex;
   width: 100%;
   min-height: 100vh;
-  display: flex;
 }
 
 .sidebar {
-  position: relative;
+  position: fixed;
   z-index: 10;
-  width: 5rem;
-  flex: 0 0 auto;
-  background-color: var(--background-color);
-  color: var(--white-primary);
-  transition: width 0.3s;
-  box-shadow: var(--shadow-md);
+  inset: 0 auto 0 0;
+  display: flex;
+  flex-direction: column;
+  width: min(var(--sidebar-expanded-width), calc(100vw - var(--space-12)));
+  height: 100dvh;
+  overflow: hidden;
+  border-right: var(--border-width) solid var(--border-color);
+  background-color: var(--surface-color);
+  color: var(--text-color);
+  box-shadow: var(--shadow-sm);
+  transition:
+    width var(--transition-base),
+    background-color var(--transition-base),
+    box-shadow var(--transition-base);
+}
 
-  .sandwich-menu {
-    margin: var(--space-2);
-    padding: var(--space-2);
-    border-radius: var(--border-radius);
-    cursor: pointer;
-    text-align: center;
-    color: var(--primary-color);
-    font-weight: bolder;
-    font-size: var(--font-size-lg);
+.sidebar--collapsed:not(.sidebar--hovered) {
+  width: var(--sidebar-collapsed-width);
+}
 
-    span {
-      display: none;
-    }
-  }
+.sidebar-toggle {
+  display: grid;
+  grid-template-columns: 2.5rem minmax(0, 1fr) 1.5rem;
+  align-items: center;
+  gap: var(--space-2);
+  min-height: 4.25rem;
+  margin: var(--space-2);
+  padding: var(--space-2);
+  overflow: hidden;
+  border: 0;
+  border-radius: var(--border-radius-lg);
+  background-color: color-mix(in srgb, var(--primary-color) 8%, var(--surface-color));
+  color: var(--text-color);
+  cursor: pointer;
+  text-align: left;
+  transition:
+    background-color var(--transition-fast),
+    color var(--transition-fast),
+    grid-template-columns var(--transition-base);
+}
 
-  &.collapsed {
-    width: 5rem;
+.sidebar-toggle:hover {
+  background-color: color-mix(in srgb, var(--primary-color) 14%, var(--surface-color));
+}
 
-    .sandwich-menu span {
-      display: none;
-    }
-  }
+.sidebar-toggle:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: -2px;
+  box-shadow: var(--focus-ring);
+}
 
-  &:hover {
-    width: 17rem;
+.sidebar-toggle__brand {
+  display: inline-grid;
+  width: 2.5rem;
+  height: 2.5rem;
+  place-items: center;
+  border-radius: var(--border-radius-lg);
+  background-color: var(--primary-color);
+  color: var(--surface-color);
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  box-shadow: var(--shadow-sm);
+}
 
-    .sandwich-menu span {
-      display: inline;
-    }
-  }
+.sidebar-toggle__title {
+  max-width: 12rem;
+  overflow: hidden;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  opacity: 1;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition:
+    max-width var(--transition-base),
+    opacity var(--transition-fast),
+    transform var(--transition-base);
+}
+
+.sidebar-toggle__indicator {
+  color: var(--primary-color);
+  font-size: var(--font-size-xs);
+  opacity: 1;
+  transition:
+    opacity var(--transition-fast),
+    transform var(--transition-base);
+}
+
+.sidebar--collapsed:not(.sidebar--hovered) .sidebar-toggle {
+  grid-template-columns: 2.5rem 0 0;
+  gap: 0;
+}
+
+.sidebar--collapsed:not(.sidebar--hovered) :is(.sidebar-toggle__title, .sidebar-toggle__indicator) {
+  max-width: 0;
+  opacity: 0;
+  transform: translateX(-0.5rem);
+}
+
+.sidebar app-sidebar {
+  min-height: 0;
+  flex: 1;
 }
 
 .main-content {
   width: 100%;
   min-width: 0;
-}
-
-.sidebar .sandwich-menu {
-  display: flex;
-  align-items: center;
+  margin-left: var(--sidebar-collapsed-width);
 }
 
 @media (min-width: 62rem) {
-  .sidebar:not(.collapsed) {
-    width: 17rem;
+  .sidebar {
+    position: sticky;
+    flex: 0 0 auto;
+  }
 
-    .sandwich-menu span {
-      display: inline;
-    }
+  .main-content {
+    margin-left: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar-toggle,
+  .sidebar-toggle__title,
+  .sidebar-toggle__indicator {
+    transition: none;
   }
 }

@@ -95,8 +95,8 @@
 
 ## Quality checks
 
-- Add or update focused tests for meaningful behavior changes, even though the current schematics
-  skip test-file generation by default.
+- Do not create test files or add test cases unless the user explicitly requests them. Preserve
+  existing tests and use build, compiler, lint, and focused manual verification as applicable.
 - After TypeScript, template, route, dependency, or build-configuration changes, run `npm run build`.
 - Run `npm test -- --watch=false` when relevant tests exist and the environment provides a browser.
 - Treat compiler and strict-template errors as defects; do not silence them with broad casts or by
