@@ -2,7 +2,6 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { WebSessionService } from '../../../../core/auth/session/web-session.service';
-import { WEB_NAVIGATION } from '../../private/navigation/web-navigation.config';
 import { WebAuthApi } from '../data-access/web-auth.api';
 import { WebSignInInput } from '../data-access/web-auth.dto';
 
@@ -17,7 +16,17 @@ export class WebAuthFacade {
     this.api.signIn(input).subscribe({
       next: (session) => {
         this.session.save(session);
-        this.session.saveNavigation(WEB_NAVIGATION);
+
+        if (this.session.requirement?.required === 'MFA') {
+          this.toastr.info('A verificação em duas etapas será necessária para concluir o acesso.');
+          return;
+        }
+
+        if (this.session.requirement?.required === 'NOrganizations') {
+          this.toastr.info('Será necessário selecionar ou criar uma organização para concluir o acesso.');
+          return;
+        }
+
         void this.router.navigate(['/dashboard']);
         this.toastr.success('Seja bem vindo!');
       },

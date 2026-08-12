@@ -1,68 +1,94 @@
-import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
+import { catchError, finalize, map, Observable, of, shareReplay, tap, throwError } from 'rxjs';
+import { WEB_API_URL } from '../../http/api-url.token';
 import { AuthSession } from './auth-session';
+import { decodeWebAccessToken, WebAccessRequirement } from './web-access-token';
 
-const WEB_SESSION_KEYS = {
-  accessToken: '@pin_web_access_token',
-  expiresIn: '@pin_web_expires_in',
-  authType: '@pin_web_auth_type',
-  navigation: '@pin_web_navigation',
-} as const;
+const ACCESS_TOKEN_EXPIRY_TOLERANCE_MS = 15_000;
 
-const LEGACY_WEB_SESSION_KEYS = {
-  accessToken: '@pin_token',
-  expiresIn: '@pin_expiresIn',
-  authType: '@pin_authType',
-  navigation: '@pin_menu',
-} as const;
+const WEB_REFRESH_TOKEN_SIGNAL_KEY = '@pin_web_with_refresh_token';
+
+type WebAuthSession = AuthSession & { withRefreshToken?: boolean };
 
 @Injectable({ providedIn: 'root' })
 export class WebSessionService {
+  private readonly http = inject(HttpClient);
+  private readonly webApiUrl = inject(WEB_API_URL);
+  private session: (AuthSession & { expiresAt: number; requirement: WebAccessRequirement | null }) | null = null;
+  private refreshRequest: Observable<AuthSession> | null = null;
+
   get accessToken(): string | null {
-    return (
-      sessionStorage.getItem(WEB_SESSION_KEYS.accessToken) ??
-      sessionStorage.getItem(LEGACY_WEB_SESSION_KEYS.accessToken)
-    );
+    if (!this.session || this.session.expiresAt <= Date.now() + ACCESS_TOKEN_EXPIRY_TOLERANCE_MS) {
+      this.session = null;
+      return null;
+    }
+
+    return this.session.accessToken;
   }
 
   get isAuthenticated(): boolean {
-    return this.accessToken !== null;
+    return this.accessToken !== null && this.requirement === null;
   }
 
-  save(session: AuthSession): void {
-    sessionStorage.setItem(WEB_SESSION_KEYS.accessToken, session.accessToken);
-    sessionStorage.setItem(WEB_SESSION_KEYS.expiresIn, String(session.expiresIn));
-    sessionStorage.setItem(WEB_SESSION_KEYS.authType, session.authType);
-    this.removeLegacyAuthKeys();
+  get requirement(): WebAccessRequirement | null {
+    return this.session?.requirement ?? null;
   }
 
-  saveNavigation<T>(items: T[]): void {
-    sessionStorage.setItem(WEB_SESSION_KEYS.navigation, JSON.stringify(items));
-    sessionStorage.removeItem(LEGACY_WEB_SESSION_KEYS.navigation);
-  }
+  save(session: WebAuthSession): void {
+    const payload = decodeWebAccessToken(session.accessToken);
 
-  getNavigation<T>(): T[] | null {
-    const storedNavigation =
-      sessionStorage.getItem(WEB_SESSION_KEYS.navigation) ??
-      sessionStorage.getItem(LEGACY_WEB_SESSION_KEYS.navigation);
+    this.session = {
+      accessToken: session.accessToken,
+      expiresIn: session.expiresIn,
+      authType: session.authType,
+      expiresAt: Date.now() + session.expiresIn * 1000,
+      requirement: payload.requirement,
+    };
 
-    if (!storedNavigation) return null;
-
-    try {
-      const navigation: unknown = JSON.parse(storedNavigation);
-      return Array.isArray(navigation) ? (navigation as T[]) : null;
-    } catch {
-      return null;
+    if (session.withRefreshToken === true) {
+      localStorage.setItem(WEB_REFRESH_TOKEN_SIGNAL_KEY, 'true');
+    } else if (session.withRefreshToken === false) {
+      localStorage.removeItem(WEB_REFRESH_TOKEN_SIGNAL_KEY);
     }
   }
 
-  clear(): void {
-    Object.values(WEB_SESSION_KEYS).forEach((key) => sessionStorage.removeItem(key));
-    Object.values(LEGACY_WEB_SESSION_KEYS).forEach((key) => sessionStorage.removeItem(key));
+  getValidAccessToken(): Observable<string> {
+    const accessToken = this.accessToken;
+    if (accessToken) return of(accessToken);
+    if (!this.hasRefreshToken) return throwError(() => new Error('Sessão não pode ser restaurada.'));
+
+    return this.refresh().pipe(map(({ accessToken: refreshedToken }) => refreshedToken));
   }
 
-  private removeLegacyAuthKeys(): void {
-    sessionStorage.removeItem(LEGACY_WEB_SESSION_KEYS.accessToken);
-    sessionStorage.removeItem(LEGACY_WEB_SESSION_KEYS.expiresIn);
-    sessionStorage.removeItem(LEGACY_WEB_SESSION_KEYS.authType);
+  restore(): Observable<boolean> {
+    if (this.isAuthenticated) return of(true);
+    if (!this.hasRefreshToken) return of(false);
+
+    return this.getValidAccessToken().pipe(
+      map(() => this.isAuthenticated),
+      catchError(() => of(false)),
+    );
+  }
+
+  clear(): void {
+    this.session = null;
+    localStorage.removeItem(WEB_REFRESH_TOKEN_SIGNAL_KEY);
+  }
+
+  private refresh(): Observable<AuthSession> {
+    if (this.refreshRequest) return this.refreshRequest;
+
+    this.refreshRequest = this.http.post<AuthSession>(`${this.webApiUrl}/auth/refresh`, null).pipe(
+      tap((session) => this.save(session)),
+      finalize(() => this.refreshRequest = null),
+      shareReplay({ bufferSize: 1, refCount: false }),
+    );
+
+    return this.refreshRequest;
+  }
+
+  private get hasRefreshToken(): boolean {
+    return localStorage.getItem(WEB_REFRESH_TOKEN_SIGNAL_KEY) === 'true';
   }
 }

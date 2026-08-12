@@ -1,9 +1,8 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { WebSessionService } from '../../../../core/auth/session/web-session.service';
 import { NavigationItem } from '../../../../shared/ui/navigation/navigation-item';
 import { SidebarComponent } from '../../../../shared/ui/navigation/sidebar/sidebar.component';
-import { WebAuthFacade } from '../../auth/application/web-auth.facade';
+import { WEB_NAVIGATION } from '../navigation/web-navigation.config';
 import { WebPrivateHeader } from './components/header/web-private-header';
 
 @Component({
@@ -16,25 +15,7 @@ import { WebPrivateHeader } from './components/header/web-private-header';
 export class WebPrivateLayout {
   isCollapsed = typeof window === 'undefined' || !window.matchMedia('(min-width: 62rem)').matches;
   isHovered = false;
-  menu: NavigationItem[] = []
-
-  constructor(
-    private authFacade: WebAuthFacade,
-    private webSession: WebSessionService
-  ) {
-    this.menu = this.getMenu()
-  }
-
-  private getMenu(): NavigationItem[] {
-    const navigation = this.webSession.getNavigation<NavigationItem>()
-
-    if (!navigation) {
-      this.authFacade.logout()
-      return []
-    }
-
-    return navigation
-  }
+  menu: NavigationItem[] = WEB_NAVIGATION;
 
   toggleSidebar() {
     this.isCollapsed = !this.isCollapsed;

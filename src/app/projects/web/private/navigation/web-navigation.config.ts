@@ -31,6 +31,32 @@ export const WEB_NAVIGATION: NavigationItem[] = [
             link: '/my-business/project/bmc',
             permission: -1,
             icon: 'fa-solid fa-mug-hot',
+            menu: [
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' },
+              { name: 'Descrição', link: '/my-business/project/bmc/description' },
+              { name: 'Sumário', link: '/my-business/project/bmc/description' },
+              { name: 'Autores', link: '/my-business/project/bmc/description' }
+            ]
           },
           {
             name: '5W2H',
@@ -47,8 +73,19 @@ export const WEB_NAVIGATION: NavigationItem[] = [
           {
             name: 'Plano de Negócio',
             link: '/my-business/project/plan',
-            permission: -1,
+            // permission: -1,
             icon: 'fa-solid fa-list',
+            menu: [
+              {
+                name: 'Investimentos', link: '/a',
+                menu: [
+                  { name: 'Maquinário', link: '/b' },
+                  { name: 'Rede Física', link: '/d' },
+                ]
+              },
+              { name: 'Quadro Societário', link: '/c' },
+              { name: 'Estoque', link: '/d' },
+            ]
           },
           {
             name: 'Viabilidade',

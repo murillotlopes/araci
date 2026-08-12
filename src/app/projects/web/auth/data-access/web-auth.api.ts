@@ -10,6 +10,10 @@ export class WebAuthApi {
   private readonly webApiUrl = inject(WEB_API_URL);
 
   signIn(input: WebSignInInput): Observable<WebSignInOutput> {
-    return this.http.post<WebSignInOutput>(`${this.webApiUrl}/auth/signin`, input);
+    return this.http.post<WebSignInOutput>(`${this.webApiUrl}/auth/signin`, input, {
+      // Permite receber o refresh token por Set-Cookie. O Path do cookie
+      // impede seu envio fora de /web/auth/refresh.
+      withCredentials: true,
+    });
   }
 }

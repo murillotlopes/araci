@@ -7,4 +7,5 @@ export interface WebSignInOutput {
   accessToken: string;
   expiresIn: number;
   authType: string;
+  withRefreshToken: boolean;
 }
