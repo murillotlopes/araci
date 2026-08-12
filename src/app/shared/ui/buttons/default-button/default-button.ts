@@ -7,6 +7,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
   styleUrl: './default-button.scss',
 })
 export class DefaultButton {
+  @Input() type: 'button' | 'submit' | 'reset' = 'button'
   @Input() disabled: boolean = false
   @Output() externalFunction = new EventEmitter<void>();
 
