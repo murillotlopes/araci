@@ -3,17 +3,17 @@ import { FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '
 import { RxFormControl, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @Component({
-  selector: 'app-input-text',
+  selector: 'app-input-text-float',
   imports: [ReactiveFormsModule, FormsModule, RxReactiveFormsModule],
-  templateUrl: './input-text.html',
-  styleUrl: './input-text.scss',
+  templateUrl: './input-text-float.html',
+  styleUrl: './input-text-float.scss',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => InputText),
+    useExisting: forwardRef(() => InputTextFloat),
     multi: true
   }]
 })
-export class InputText {
+export class InputTextFloat {
   @Input() formControlName!: string
   @Input() placeholder!: string
   @Input() formGroup!: FormGroup

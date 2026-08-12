@@ -394,6 +394,7 @@ p {
 .error-message {
   min-height: 1.125rem;
   margin-top: var(--space-1);
+  padding-left: var(--space-1);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

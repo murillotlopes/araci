@@ -3,17 +3,17 @@ import { FormGroup, FormsModule, NG_VALUE_ACCESSOR, ReactiveFormsModule } from '
 import { RxFormControl, RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 
 @Component({
-  selector: 'app-input-password',
+  selector: 'app-input-password-float',
   imports: [RxReactiveFormsModule, ReactiveFormsModule, FormsModule],
-  templateUrl: './input-password.html',
-  styleUrl: './input-password.scss',
+  templateUrl: './input-password-float.html',
+  styleUrl: './input-password-float.scss',
   providers: [{
     provide: NG_VALUE_ACCESSOR,
-    useExisting: forwardRef(() => InputPassword),
+    useExisting: forwardRef(() => InputPasswordFloat),
     multi: true
   }]
 })
-export class InputPassword {
+export class InputPasswordFloat {
   @Input() formControlName!: string
   @Input() placeholder!: string
   @Input() formGroup!: FormGroup
