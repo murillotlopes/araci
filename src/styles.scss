@@ -1,67 +1,124 @@
+@use 'sass:math';
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-@import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
 
-// Reset básico
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+// Breakpoints mobile-first. CSS custom properties document the same values at runtime,
+// while these Sass variables generate the responsive utilities below.
+$breakpoint-sm: 36rem; // 576px
+$breakpoint-md: 48rem; // 768px
+$breakpoint-lg: 62rem; // 992px
+$breakpoint-xl: 75rem; // 1200px
+$breakpoint-xxl: 87.5rem; // 1400px
+
+$spacers: (
+  0: 0,
+  1: 0.25rem,
+  2: 0.5rem,
+  3: 1rem,
+  4: 1.5rem,
+  5: 3rem,
+);
+
+@mixin make-columns($infix: '') {
+  @for $index from 1 through 12 {
+    .col#{$infix}-#{$index} {
+      flex: 0 0 auto;
+      width: math.percentage(math.div($index, 12));
+    }
+  }
 }
 
-html {
-  font-size: 16px; // base
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: "Inter", sans-serif;
-  background-color: var(--background-color);
-  color: var(--text-color);
-  height: 100%;
-  line-height: 1.5;
-  -webkit-font-smoothing: antialiased;
-}
-
-// ==========================
-// 🎨 Paleta de cores (modo claro)
-// ==========================
+// Theme tokens. Existing colors are intentionally preserved.
 :root {
-  // principais
+  color-scheme: light;
+
+  // Brand and feedback colors
   --primary-color: #2a9d8f;
   --secondary-color: #264653;
   --accent-color: #f4a261;
   --tertiary-color: #e9c46a;
   --secondary-dark-color: #e76f51;
-
-  // feedback
   --success-color: #4caf50;
   --error-color: #d62828;
   --alert-color: #ffb703;
   --info-color: #33a1fd;
 
-  // texto e fundo
+  // Semantic surfaces and text
   --background-color: #f9f9f9;
   --surface-color: #ffffff;
+  --surface-subtle-color: rgba(250, 250, 250, 0.1);
   --text-color: #2b2b2b;
   --text-muted: #757575;
   --border-color: #e0e0e0;
+  --white-primary: #ffffff;
+  --gray-primary: #2b2b2b;
 
-  // utilitários
-  --border-radius: 8px;
+  // Typography
+  --font-family-base: 'Inter', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: clamp(1.25rem, 2vw, 1.75rem);
+  --font-size-3xl: clamp(1.8rem, 2vw, 2.2rem);
+  --line-height-tight: 1.2;
+  --line-height-base: 1.5;
+
+  // Spacing scale
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+  --space-24: 6rem;
+
+  // Borders, controls, motion and elevation
+  --border-width: 1px;
+  --control-border-width: 2px;
+  --border-radius-sm: 0.25rem;
+  --border-radius: 0.5rem;
+  --border-radius-lg: 0.75rem;
+  --border-radius-pill: 999px;
+  --control-min-height: 2.35rem;
+  --control-padding-y: 0.3rem;
+  --control-padding-x: 0.5rem;
+  --focus-ring: 0 0 0 2px color-mix(in srgb, var(--primary-color) 20%, transparent);
+  --shadow-sm: 0 4px 10px rgba(0, 0, 0, 0.1);
   --shadow-md: 0 12px 12px rgba(0, 0, 0, 0.15);
+  --transition-fast: 0.2s ease;
+  --transition-base: 0.3s ease;
+
+  // Layout
+  --content-gutter: 1rem;
+  --content-max-width: 82.5rem;
+  --grid-gutter-x: 1.5rem;
+  --grid-gutter-y: 1rem;
+  --breakpoint-sm: 36rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-lg: 62rem;
+  --breakpoint-xl: 75rem;
+  --breakpoint-xxl: 87.5rem;
 }
 
-// ==========================
-// 🎨 Paleta de cores (modo escuro)
-// ==========================
-[data-theme="dark"] {
+[data-theme='dark'] {
+  color-scheme: dark;
   --background-color: #1e1e1e;
   --surface-color: #2b2b2b;
+  --surface-subtle-color: rgba(250, 250, 250, 0.1);
   --text-color: #efefef;
   --text-muted: #b5b5b5;
   --border-color: #3a3a3a;
+  --white-primary: #efefef;
+  --gray-primary: #2b2b2b;
+  --shadow-sm: 0 4px 10px rgba(222, 222, 222, 0.1);
+  --shadow-md: 0 12px 12px rgba(222, 222, 222, 0.15);
 
-  // ajustes de cores principais para contraste
   --primary-color: #2a9d8f;
   --secondary-color: #1a2e35;
   --accent-color: #e89b5c;
@@ -69,87 +126,690 @@ body {
   --secondary-dark-color: #e76f51;
 }
 
-// ==========================
-// 📝 Tipografia
-// ==========================
+// Reset and document defaults
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  min-width: 20rem;
+  font-size: 16px;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: var(--font-family-base);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+button,
+[role='button'] {
+  touch-action: manipulation;
+}
+
+img,
+svg {
+  max-width: 100%;
+}
+
+a {
+  color: var(--primary-color);
+  text-decoration-thickness: 0.08em;
+  text-underline-offset: 0.15em;
+}
+
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+
 h1,
 .title {
-  font-size: clamp(1.8rem, 2vw, 2.2rem);
+  margin-bottom: var(--space-2);
+  font-size: var(--font-size-3xl);
   font-weight: 600;
-  margin-bottom: 0.5rem;
+  line-height: var(--line-height-tight);
 }
 
 h2,
 .subtitle {
-  font-size: clamp(1.2rem, 1.5vw, 1.4rem);
+  margin-bottom: var(--space-1);
+  font-size: var(--font-size-2xl);
   font-weight: 500;
-  margin-bottom: 0.25rem;
+  line-height: var(--line-height-tight);
 }
 
 p {
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-4);
   color: var(--text-muted);
 }
 
-// ==========================
-// 🌈 Utilitários de cor
-// ==========================
-.txt-primary {
+:focus-visible {
+  outline: 2px solid var(--primary-color);
+  outline-offset: 2px;
+}
+
+// Containers and a compact 12-column, mobile-first grid.
+.container,
+.container-fluid {
+  width: 100%;
+  margin-inline: auto;
+  padding-inline: var(--content-gutter);
+}
+
+.container {
+  max-width: var(--content-max-width);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: calc(-1 * var(--grid-gutter-y));
+  margin-inline: calc(-0.5 * var(--grid-gutter-x));
+}
+
+.row > * {
+  width: 100%;
+  max-width: 100%;
+  margin-top: var(--grid-gutter-y);
+  padding-inline: calc(0.5 * var(--grid-gutter-x));
+}
+
+.col {
+  flex: 1 0 0%;
+}
+
+.row > [class*='col-'] {
+  flex: 0 0 auto;
+  width: 100%;
+}
+
+@media (min-width: $breakpoint-sm) {
+  :root {
+    --content-gutter: 1.25rem;
+  }
+
+  @include make-columns('-sm');
+}
+
+@media (min-width: $breakpoint-md) {
+  @include make-columns;
+  @include make-columns('-md');
+}
+
+@media (min-width: $breakpoint-lg) {
+  :root {
+    --content-gutter: 1.5rem;
+  }
+
+  @include make-columns('-lg');
+}
+
+@media (min-width: $breakpoint-xl) {
+  @include make-columns('-xl');
+}
+
+@media (min-width: $breakpoint-xxl) {
+  @include make-columns('-xxl');
+}
+
+// Shared form primitives used by the current form components.
+:where(
+  .form-input-text,
+  .form-select-field,
+  .form-text-area-field,
+  .form-checkbox,
+  .form-radio-button,
+  .form-input-toggle-switch,
+  .form-input-file,
+  .form-input-file-list
+) {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+:where(
+  .form-input-text,
+  .form-select-field,
+  .form-text-area-field,
+  .form-checkbox,
+  .form-radio-button,
+  .form-input-toggle-switch,
+  .form-input-file,
+  .form-input-file-list
+) :where(label, .field-label) {
+  color: var(--primary-color);
+  font-size: var(--font-size-base);
+  font-weight: 600;
+}
+
+.form-input-text input,
+.form-select-field select,
+.form-text-area-field textarea {
+  width: 100%;
+  min-height: var(--control-min-height);
+  padding: var(--control-padding-y) var(--control-padding-x);
+  border: var(--control-border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-subtle-color);
+  color: var(--text-color);
+  transition:
+    border-color var(--transition-fast),
+    box-shadow var(--transition-fast),
+    background-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+.form-input-text input:focus,
+.form-select-field select:focus,
+.form-text-area-field textarea:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+:where(input, select, textarea).invalid {
+  border-color: var(--error-color);
+}
+
+:where(input, select, textarea):disabled,
+.disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+::placeholder {
+  color: var(--text-muted);
+}
+
+// Floating-label inputs used by the public authentication pages.
+.input-container {
+  position: relative;
+  margin-top: var(--space-3);
+}
+
+.input-container input {
+  width: 100%;
+  min-height: var(--control-min-height);
+  padding: var(--space-2) var(--control-padding-x);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-subtle-color);
+  color: var(--text-color);
+}
+
+.input-container input:focus {
+  border-color: var(--primary-color);
+  outline: none;
+  box-shadow: var(--focus-ring);
+}
+
+.input-container label {
+  position: absolute;
+  top: 50%;
+  left: var(--control-padding-x);
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  pointer-events: none;
+  transform: translateY(-50%);
+  transition: all var(--transition-base);
+}
+
+.input-container label.active,
+.input-container input:not(:placeholder-shown) + label {
+  top: -0.625rem;
+  color: var(--primary-color);
+  font-weight: 700;
+}
+
+.input-container input::placeholder {
+  color: transparent;
+}
+
+.input-container input:focus::placeholder {
+  color: var(--text-muted);
+}
+
+.error-message {
+  min-height: 1.125rem;
+  margin-top: var(--space-1);
+  padding-left: var(--space-1);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.error-message small {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  color: var(--error-color);
+  font-size: var(--font-size-xs);
+  line-height: var(--line-height-tight);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// Shared panel and authentication layouts.
+.surface-panel,
+.form-box {
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background-color: var(--surface-color);
+  box-shadow: var(--shadow-sm);
+}
+
+.form-container {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: calc(4rem + var(--space-6)) var(--content-gutter) var(--space-6);
+}
+
+.form-box {
+  width: min(100%, 25rem);
+  padding: var(--space-6);
+}
+
+.auth-card {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.auth-header {
+  text-align: center;
+}
+
+.auth-header h1 {
+  margin-bottom: var(--space-2);
   color: var(--primary-color);
 }
 
+.auth-header p {
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+}
+
+.auth-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.auth-field {
+  min-width: 0;
+}
+
+.auth-actions,
+.auth-switch {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-actions {
+  margin-top: var(--space-2);
+}
+
+.auth-switch {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
+// Project buttons use one explicit base class plus semantic visual variants.
+.app-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.25rem;
+  padding: var(--control-padding-y) var(--control-padding-x);
+  border: var(--control-border-width) solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  cursor: pointer;
+  font-size: var(--font-size-lg);
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+.app-button--primary {
+  color: var(--primary-color);
+}
+
+.app-button--primary:hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.app-button--primary:active:not(:disabled) {
+  border-color: var(--secondary-dark-color);
+  background-color: var(--secondary-dark-color);
+  color: var(--text-color);
+}
+
+.app-button--secondary {
+  color: var(--secondary-dark-color);
+}
+
+.app-button--secondary:hover:not(:disabled) {
+  background-color: var(--secondary-dark-color);
+  color: var(--text-color);
+}
+
+.app-button--secondary:active:not(:disabled) {
+  border-color: var(--secondary-dark-color);
+  background-color: var(--primary-color);
+  color: var(--secondary-dark-color);
+}
+
+.app-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+// Other shared controls keep their existing class contracts.
+:where(
+  .btn,
+  .file-picker-button,
+  .file-remove-button,
+  .select-button,
+  .remove-button
+) {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  min-height: 2.25rem;
+  padding: var(--control-padding-y) var(--control-padding-x);
+  border: var(--control-border-width) solid var(--primary-color);
+  border-radius: var(--border-radius);
+  background-color: transparent;
+  color: var(--primary-color);
+  cursor: pointer;
+  font-weight: 600;
+  line-height: var(--line-height-tight);
+  text-decoration: none;
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast),
+    opacity var(--transition-fast);
+}
+
+:where(.btn-primary):hover:not(:disabled),
+:where(.file-picker-button, .select-button):hover:not(:disabled) {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+:where(
+  .btn,
+  .file-picker-button,
+  .file-remove-button,
+  .select-button,
+  .remove-button
+):disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.btn-primary {
+  background-color: var(--primary-color);
+  color: var(--text-color);
+}
+
+.btn-sm {
+  min-height: 2rem;
+  padding: var(--space-1) var(--space-2);
+  font-size: var(--font-size-sm);
+}
+
+// Minimal Bootstrap-compatible navigation/collapse rules currently used by the app.
+.navbar {
+  display: flex;
+  align-items: center;
+  min-height: 4rem;
+  padding-block: var(--space-2);
+}
+
+.navbar > .container,
+.navbar > .container-fluid {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar-brand,
+.nav-link {
+  text-decoration: none;
+}
+
+.navbar-toggler {
+  display: inline-flex;
+  padding: var(--space-2);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  background: transparent;
+  color: var(--text-color);
+}
+
+.navbar-toggler-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  background:
+    linear-gradient(var(--text-color), var(--text-color)) 0 25% / 100% 2px no-repeat,
+    linear-gradient(var(--text-color), var(--text-color)) 0 50% / 100% 2px no-repeat,
+    linear-gradient(var(--text-color), var(--text-color)) 0 75% / 100% 2px no-repeat;
+}
+
+.navbar-collapse {
+  flex-basis: 100%;
+}
+
+.navbar-nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  margin: var(--space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.collapse:not(.show) {
+  display: none;
+}
+
+.fixed-top {
+  position: fixed;
+  z-index: 1030;
+  inset: 0 0 auto;
+}
+
+@media (min-width: $breakpoint-lg) {
+  .navbar-expand-lg {
+    flex-wrap: nowrap;
+  }
+
+  .navbar-expand-lg .navbar-toggler {
+    display: none;
+  }
+
+  .navbar-expand-lg .navbar-collapse {
+    display: flex !important;
+    flex-basis: auto;
+  }
+
+  .navbar-expand-lg .navbar-nav {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 0;
+  }
+
+  .mb-lg-0 {
+    margin-bottom: 0 !important;
+  }
+}
+
+// Color and common utility classes.
+.txt-primary,
+.text-primary {
+  color: var(--primary-color) !important;
+}
+
 .txt-secondary {
-  color: var(--secondary-color);
+  color: var(--secondary-color) !important;
 }
 
 .txt-accent {
-  color: var(--accent-color);
+  color: var(--accent-color) !important;
 }
 
 .txt-tertiary {
-  color: var(--tertiary-color);
+  color: var(--tertiary-color) !important;
 }
 
 .txt-secondary-dark {
-  color: var(--secondary-dark-color);
+  color: var(--secondary-dark-color) !important;
 }
 
 .bk-primary {
   background-color: var(--primary-color);
-  color: #fff;
+  color: var(--white-primary);
 }
 
 .bk-secondary {
   background-color: var(--secondary-color);
-  color: #fff;
+  color: var(--white-primary);
 }
 
 .bk-accent {
   background-color: var(--accent-color);
-  color: #fff;
+  color: var(--white-primary);
 }
 
 .bk-tertiary {
   background-color: var(--tertiary-color);
-  color: #fff;
+  color: var(--gray-primary);
 }
 
 .bk-secondary-dark {
   background-color: var(--secondary-dark-color);
-  color: #fff;
+  color: var(--white-primary);
 }
 
-// ==========================
-// 🎯 Extras
-// ==========================
+.text-center {
+  text-align: center !important;
+}
+
+.fw-bold {
+  font-weight: 700 !important;
+}
+
+.w-100 {
+  width: 100% !important;
+}
+
 .cursor-pointer {
   cursor: pointer;
 }
 
 .rounded {
-  border-radius: var(--border-radius);
+  border-radius: var(--border-radius) !important;
 }
 
 .shadow {
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-md) !important;
+}
+
+.ms-auto {
+  margin-inline-start: auto !important;
+}
+
+@each $name, $value in $spacers {
+  .m-#{$name} {
+    margin: $value !important;
+  }
+
+  .mt-#{$name} {
+    margin-top: $value !important;
+  }
+
+  .mb-#{$name} {
+    margin-bottom: $value !important;
+  }
+
+  .ms-#{$name} {
+    margin-inline-start: $value !important;
+  }
+
+  .me-#{$name} {
+    margin-inline-end: $value !important;
+  }
+
+  .mx-#{$name} {
+    margin-inline: $value !important;
+  }
+
+  .p-#{$name} {
+    padding: $value !important;
+  }
+
+  .pt-#{$name} {
+    padding-top: $value !important;
+  }
+
+  .pb-#{$name} {
+    padding-bottom: $value !important;
+  }
+
+  .px-#{$name} {
+    padding-inline: $value !important;
+  }
+
+  .gap-#{$name} {
+    gap: $value !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }

@@ -1,0 +1,22 @@
+<div class="form-select-field" [formGroup]="formGroup">
+  <label [for]="formControlName">{{ label }}</label>
+  <select
+    [id]="formControlName"
+    [formControlName]="formControlName"
+    [class.invalid]="hasError"
+    [disabled]="disabled"
+  >
+    @if (showPlaceholder) {
+      <option [ngValue]="null">{{ placeholder }}</option>
+    }
+
+    @for (option of options; track $index) {
+      @if (!isOptionHidden(option)) {
+        <option [ngValue]="getOptionValue(option)" [disabled]="isOptionDisabled(option)">
+          {{ getOptionLabel(option) }}
+        </option>
+      }
+    }
+  </select>
+  <app-form-error [control]="control" />
+</div>

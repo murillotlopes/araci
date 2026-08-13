@@ -1,0 +1,25 @@
+.custom-header {
+  background-color: var(--surface-color);
+  transition: background-color var(--transition-base);
+}
+
+.nav-link {
+  color: var(--text-color);
+  margin: 0 var(--space-2);
+  transition: color var(--transition-fast);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}
+
+.toggle-theme {
+  border: none;
+  background: transparent;
+  color: var(--text-color);
+  font-size: var(--font-size-lg);
+
+  &:hover {
+    color: var(--primary-color);
+  }
+}

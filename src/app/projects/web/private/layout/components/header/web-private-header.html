@@ -1,0 +1,13 @@
+<header class="header-content">
+  <div class="">
+    <a class="nav-link" routerLink="#config"><i class="fa-solid fa-dumbbell mx-2"></i></a>
+    <a class="nav-link" routerLink="#config"><i class="fa-solid fa-bell mx-2"></i></a>
+
+    <a class="nav-link" (click)="toggleTheme()"> @if(theme === 'light') { <i class="fas fa-moon mx-2"></i>}
+      @else{ <i class="fas fa-sun mx-2"></i>}</a>
+    <a class="nav-link" routerLink="/user"><i class="fas fa-user  mx-2"></i></a>
+    <a class="nav-link" routerLink="/config" routerLinkActive="active"><i class="fa-solid fa-gear  mx-2"></i></a>
+    <a class="nav-link"><i class="fa-solid fa-right-from-bracket" title="Sair" alt="logout" (click)="logout()"></i></a>
+
+  </div>
+</header>

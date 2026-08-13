@@ -1,0 +1,20 @@
+<div class="layout-content">
+  <aside class="sidebar" [class.sidebar--collapsed]="isCollapsed" [class.sidebar--hovered]="isHovered"
+    (mouseenter)="hoverSidebar(true)"
+    (mouseleave)="hoverSidebar(false)">
+    <button class="sidebar-toggle" type="button" (click)="toggleSidebar()"
+      [attr.aria-expanded]="!isCollapsed" [attr.aria-label]="isCollapsed ? 'Expandir menu lateral' : 'Recolher menu lateral'">
+      <span class="sidebar-toggle__brand" aria-hidden="true">P</span>
+      <span class="sidebar-toggle__title">ERP Pindorama</span>
+      <i class="sidebar-toggle__indicator fa-solid" [class.fa-angles-left]="!isCollapsed"
+        [class.fa-angles-right]="isCollapsed" aria-hidden="true"></i>
+    </button>
+    <app-sidebar [menu]="menu" [isCollapsed]="isCollapsed" [isHovered]="isHovered" />
+  </aside>
+  <div class="main-content">
+    <app-header></app-header>
+    <main>
+      <router-outlet />
+    </main>
+  </div>
+</div>

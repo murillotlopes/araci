@@ -1,0 +1,49 @@
+:host {
+  display: block;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.sidebar-nav {
+  height: 100%;
+  min-height: 0;
+  padding: var(--space-2);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: none;
+}
+
+.sidebar-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.sidebar-nav__eyebrow {
+  height: 1.5rem;
+  margin: var(--space-2) var(--space-3) var(--space-1);
+  overflow: hidden;
+  color: var(--text-muted);
+  font-size: var(--font-size-xs);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  line-height: 1.5rem;
+  text-transform: uppercase;
+  white-space: nowrap;
+  transition:
+    height var(--transition-base),
+    margin var(--transition-base),
+    opacity var(--transition-fast);
+}
+
+.sidebar-nav__list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.sidebar-nav--compact .sidebar-nav__eyebrow {
+  height: 0;
+  margin-block: 0;
+  opacity: 0;
+}

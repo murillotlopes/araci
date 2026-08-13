@@ -59,6 +59,50 @@
               ],
               "outputHashing": "all"
             },
+            "sandbox": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.sandbox.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
+            "homologation": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "4kB",
+                  "maximumError": "8kB"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.homologation.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all"
+            },
             "development": {
               "optimization": false,
               "extractLicenses": false,
@@ -78,6 +122,12 @@
           "configurations": {
             "production": {
               "buildTarget": "araci:build:production"
+            },
+            "sandbox": {
+              "buildTarget": "araci:build:sandbox"
+            },
+            "homologation": {
+              "buildTarget": "araci:build:homologation"
             },
             "development": {
               "buildTarget": "araci:build:development"
@@ -110,5 +160,8 @@
         }
       }
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }

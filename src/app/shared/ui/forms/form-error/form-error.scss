@@ -1,0 +1,12 @@
+.error-message {
+  small {
+    opacity: 0;
+    transform: translateY(-2px);
+    transition: opacity var(--transition-fast), transform var(--transition-fast);
+  }
+}
+
+.error-message.visible small {
+  opacity: 1;
+  transform: translateY(0);
+}

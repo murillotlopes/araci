@@ -1,0 +1,5 @@
+<div class="form-input-text" [formGroup]="formGroup">
+  <label [for]="formControlName">{{ label }}</label>
+  <input type="text" [formControlName]="formControlName" [placeholder]="placeholder" [id]="formControlName">
+  <app-form-error [control]="control" />
+</div>

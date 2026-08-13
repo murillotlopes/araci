@@ -1,0 +1,92 @@
+<div class="form-input-file-list">
+  @if (label) {
+    <label [for]="formControlName || 'form-input-file-list'">{{ label }}</label>
+  }
+
+  <div
+    class="file-dropzone"
+    [class.dragging]="isDragging"
+    [class.invalid]="hasError || validationMessages.length > 0"
+    [class.disabled]="disabled || !canAddMoreFiles"
+    (dragover)="onDragOver($event)"
+    (dragleave)="onDragLeave($event)"
+    (drop)="onDrop($event)"
+  >
+    <input
+      #fileInput
+      type="file"
+      [id]="formControlName || 'form-input-file-list'"
+      [attr.accept]="inputAccept"
+      [multiple]="multiple"
+      [disabled]="disabled || !canAddMoreFiles"
+      (change)="onFileInputChange($event)"
+    />
+
+    <div class="dropzone-content">
+      <div class="dropzone-icon">
+        <i class="fa-solid fa-cloud-arrow-up" aria-hidden="true"></i>
+      </div>
+
+      <div class="dropzone-text">
+        <strong>{{ placeholder }}</strong>
+        @if (hint) {
+          <span>{{ hint }}</span>
+        }
+      </div>
+
+      <button
+        class="file-picker-button"
+        type="button"
+        [disabled]="disabled || !canAddMoreFiles"
+        (click)="openFilePicker()"
+      >
+        <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+        <span>{{ buttonLabel }}</span>
+      </button>
+    </div>
+  </div>
+
+  @if (validationMessages.length > 0) {
+    <div class="file-list-errors">
+      @for (message of validationMessages; track message) {
+        <span>{{ message }}</span>
+      }
+    </div>
+  }
+
+  @if (value.length > 0) {
+    <ul class="file-list" aria-label="Arquivos selecionados">
+      @for (item of value; track trackFile($index, item)) {
+        <li class="file-item">
+          <div class="file-thumb">
+            @if (isImage(item) && (item.previewUrl || item.url)) {
+              <img [src]="item.previewUrl || item.url" [alt]="item.name" />
+            } @else {
+              <i [class]="getFileIcon(item)" aria-hidden="true"></i>
+            }
+          </div>
+
+          <div class="file-info">
+            <strong [title]="item.name">{{ item.name }}</strong>
+            <div class="file-meta">
+              <span class="file-status" [class.saved]="item.saved">{{ statusLabel(item) }}</span>
+              <span>{{ formatFileSize(item.size) }}</span>
+            </div>
+          </div>
+
+          <button
+            class="file-remove-button"
+            type="button"
+            [disabled]="disabled"
+            [attr.aria-label]="'Remover ' + item.name"
+            (click)="removeFile(item)"
+          >
+            <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+          </button>
+        </li>
+      }
+    </ul>
+  }
+
+  <app-form-error [control]="control" />
+</div>

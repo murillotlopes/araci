@@ -1,0 +1,47 @@
+<div class="menu-item" [class.menu-item--root]="level === 0" [class.menu-item--nested]="level > 0"
+  [class.menu-item--branch]="hasChildren" [class.menu-item--leaf]="!hasChildren"
+  [class.menu-item--active-branch]="isActiveBranch" [class.menu-item--compact]="isCompact"
+  [style.--menu-level]="level">
+  @if (hasChildren) {
+    <button class="menu-item__control menu-item__control--trigger" type="button" (click)="toggleSubmenu()"
+      [class.is-expanded]="isExpanded" [attr.aria-expanded]="isExpanded"
+      [attr.aria-controls]="submenuId" [title]="isCompact ? item.name : (item.title || '')">
+      <span class="menu-item__symbol" aria-hidden="true">
+        @if (item.icon) {
+          <i [class]="item.icon"></i>
+        } @else {
+          <span class="menu-item__initial">{{ item.name.charAt(0).toUpperCase() }}</span>
+        }
+      </span>
+      <span class="menu-item__label">{{ item.name }}</span>
+      <span class="menu-item__branch-indicator" aria-hidden="true">
+        <i class="fa-solid fa-chevron-right"></i>
+      </span>
+    </button>
+
+    <div class="menu-item__disclosure" [class.is-open]="isExpanded && !isCompact"
+      [attr.aria-hidden]="!isExpanded || isCompact"
+      [attr.inert]="isExpanded && !isCompact ? null : ''">
+      <ul class="menu-item__children" [id]="submenuId" role="list">
+        @for (subItem of item.menu; track subItem.link || subItem.name) {
+          <app-menu-item [item]="subItem" [isCollapsed]="isCollapsed" [isHovered]="isHovered"
+            [level]="level + 1" [isExpanded]="expandedChild === subItem"
+            (expandedChange)="setExpandedChild(subItem, $event)" />
+        }
+      </ul>
+    </div>
+  } @else {
+    <a class="menu-item__control menu-item__control--link" [routerLink]="item.link"
+      routerLinkActive="is-active" ariaCurrentWhenActive="page"
+      [title]="isCompact ? item.name : (item.title || '')">
+      <span class="menu-item__symbol" aria-hidden="true">
+        @if (item.icon) {
+          <i [class]="item.icon"></i>
+        } @else {
+          <span class="menu-item__initial">{{ item.name.charAt(0).toUpperCase() }}</span>
+        }
+      </span>
+      <span class="menu-item__label">{{ item.name }}</span>
+    </a>
+  }
+</div>

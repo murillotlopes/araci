@@ -1,0 +1,10 @@
+<nav class="sidebar-nav" [class.sidebar-nav--compact]="isCollapsed && !isHovered"
+  aria-label="Navegação principal">
+  <p class="sidebar-nav__eyebrow">Navegação</p>
+  <ul class="sidebar-nav__list" role="list">
+    @for (item of menuItems; track item.link || item.name) {
+      <app-menu-item [item]="item" [isCollapsed]="isCollapsed" [isHovered]="isHovered" [level]="0"
+        [isExpanded]="expandedItem === item" (expandedChange)="setExpandedItem(item, $event)" />
+    }
+  </ul>
+</nav>

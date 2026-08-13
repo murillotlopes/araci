@@ -1,0 +1,52 @@
+<div class="form-checkbox">
+  @if (label) {
+    <label class="field-label" [attr.for]="hasItems ? null : inputId">{{ label }}</label>
+  }
+
+  <div class="checkbox-input" [class.disabled]="isDisabled" [class.invalid]="hasError">
+    @if (!hasItems) {
+      <label class="checkbox-option" [for]="inputId">
+        <input
+          type="checkbox"
+          [id]="inputId"
+          [name]="name"
+          [checked]="value"
+          [disabled]="isDisabled"
+          [attr.placeholder]="placeholder"
+          (change)="toggleSingle($event)"
+          (blur)="onTouched()"
+        >
+        <span class="checkbox-control" aria-hidden="true"></span>
+        @if (singleCheckboxText) {
+          <span class="checkbox-text">{{ singleCheckboxText }}</span>
+        }
+      </label>
+    }
+
+    @if (hasItems) {
+      @if (placeholder) {
+        <span class="checkbox-placeholder">{{ placeholder }}</span>
+      }
+
+      @for (item of items; track getItemValue(item); let index = $index) {
+        <label class="checkbox-option" [class.disabled]="isItemDisabled(item)" [for]="getItemId(index)">
+          <input
+            type="checkbox"
+            [id]="getItemId(index)"
+            [name]="name"
+            [value]="getItemValue(item)"
+            [checked]="isItemChecked(item)"
+            [disabled]="isItemDisabled(item)"
+            [attr.placeholder]="placeholder || getItemLabel(item)"
+            (change)="toggleItem(item, $event)"
+            (blur)="onTouched()"
+          >
+          <span class="checkbox-control" aria-hidden="true"></span>
+          <span class="checkbox-text">{{ getItemLabel(item) }}</span>
+        </label>
+      }
+    }
+  </div>
+
+  <app-form-error [control]="control" />
+</div>

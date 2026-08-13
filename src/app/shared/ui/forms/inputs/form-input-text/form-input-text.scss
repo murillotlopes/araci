@@ -1,0 +1,14 @@
+.form-input-text {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus {
+    -webkit-text-fill-color: var(--text-color);
+    -webkit-box-shadow: 0 0 0 1000px var(--surface-color) inset;
+    box-shadow: 0 0 0 1000px var(--surface-color) inset;
+    caret-color: var(--text-color);
+    transition:
+      background-color 9999s ease-out 0s,
+      color var(--transition-fast),
+      border-color var(--transition-fast);
+  }
+}

@@ -1,0 +1,28 @@
+<form class="form-group-content" [formGroup]="formGroup" (ngSubmit)="onSubmit($event)"
+  [attr.autocomplete]="autocomplete">
+  @if (shouldShowHeader) {
+  <div class="form-group-header">
+    <div class="form-group-heading">
+      @if (title) {
+      <h1 class="form-group-title">{{ title }}</h1>
+      }
+
+      @if (subtitle) {
+      <p class="form-group-subtitle">{{ subtitle }}</p>
+      }
+    </div>
+
+    <div class="form-group-actions">
+      <ng-content select="[form-actions]"></ng-content>
+    </div>
+  </div>
+
+  @if (showDivider) {
+  <hr class="form-group-divider">
+  }
+  }
+
+  <div class="form-group-body">
+    <ng-content></ng-content>
+  </div>
+</form>

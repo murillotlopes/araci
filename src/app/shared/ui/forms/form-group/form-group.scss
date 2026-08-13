@@ -1,0 +1,84 @@
+.form-group-content {
+  padding: var(--space-4);
+  border: var(--border-width) solid var(--border-color);
+  border-radius: var(--border-radius);
+  box-shadow: var(--shadow-md);
+  background: color-mix(in srgb, var(--surface-color) 90%, transparent);
+}
+
+.form-group-header {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: var(--space-4);
+}
+
+.form-group-heading {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.form-group-title {
+  margin: 0;
+  color: var(--primary-color);
+  font-size: var(--font-size-2xl);
+  line-height: var(--line-height-tight);
+}
+
+.form-group-subtitle {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: var(--font-size-base);
+  line-height: var(--line-height-base);
+}
+
+.form-group-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.form-group-actions ::ng-deep>[form-actions] {
+  display: flex;
+  align-items: center;
+}
+
+.form-group-actions ::ng-deep>[form-actions]>*+* {
+  margin-left: var(--space-4);
+}
+
+.form-group-actions:empty {
+  display: none;
+}
+
+.form-group-divider {
+  margin: var(--space-4) 0 var(--space-5);
+  border: 0;
+  border-top: 0.15rem solid var(--secondary-dark-color);
+  border-radius: var(--border-radius);
+  opacity: 1;
+}
+
+.form-group-body {
+  min-width: 0;
+}
+
+@media (min-width: 48rem) {
+  .form-group-content {
+    padding: var(--space-6);
+  }
+
+  .form-group-header {
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .form-group-actions {
+    justify-content: flex-end;
+  }
+}

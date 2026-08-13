@@ -1,0 +1,19 @@
+<div class="form-radio">
+  <label class="radio-input" [class.disabled]="isDisabled" [class.invalid]="hasError" [for]="inputId">
+    <input
+      type="radio"
+      [id]="inputId"
+      [name]="radioName"
+      [checked]="isChecked"
+      [disabled]="isDisabled"
+      (change)="selectRadio()"
+      (blur)="onTouched()"
+    >
+    <span class="radio-control" aria-hidden="true"></span>
+    <span class="radio-label">{{ label }}</span>
+  </label>
+
+  @if (showError) {
+    <app-form-error [control]="control" />
+  }
+</div>

@@ -1,0 +1,85 @@
+<div class="form-input-file">
+  @if (label) {
+    <label>{{ label }}</label>
+  }
+
+  <div class="file-slots">
+    @for (slot of slots; track trackSlot($index, slot); let index = $index) {
+      <section
+        class="file-slot"
+        [class.dragging]="slot.dragging"
+        [class.invalid]="slot.error"
+        [class.disabled]="disabled"
+        (dragover)="onDragOver($event, slot)"
+        (dragleave)="onDragLeave($event, slot)"
+        (drop)="onDrop($event, slot)"
+      >
+        <input
+          #fileInput
+          type="file"
+          [id]="formControlName + '-' + slot.key"
+          [attr.accept]="inputAccept(slot)"
+          [disabled]="disabled"
+          (change)="onFileInputChange($event, slot)"
+        />
+
+        <div class="slot-head">
+          <div class="slot-icon">
+            <i class="fa-solid fa-file-arrow-up" aria-hidden="true"></i>
+          </div>
+
+          <div class="slot-title">
+            <strong>{{ slot.label }}</strong>
+            @if (slot.description) {
+              <span>{{ slot.description }}</span>
+            }
+          </div>
+
+          <span class="slot-status" [class.loaded]="slot.file">{{ statusLabel(slot) }}</span>
+        </div>
+
+        <div class="slot-rules">
+          <span>{{ formatAcceptedTypes(slot) }}</span>
+          @if (slot.maxFileSize !== undefined) {
+            <span>Ate {{ formatFileSize(slot.maxFileSize) }}</span>
+          }
+        </div>
+
+        @if (slot.file) {
+          <div class="slot-file">
+            <div class="file-info">
+              <strong [title]="slot.file.name">{{ slot.file.name }}</strong>
+              <span>{{ formatFileSize(slot.file.size) }}</span>
+            </div>
+
+            <button
+              class="remove-button"
+              type="button"
+              [disabled]="disabled"
+              [attr.aria-label]="'Remover ' + slot.file.name"
+              (click)="removeFile(slot)"
+            >
+              <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+            </button>
+          </div>
+        } @else {
+          <button
+            class="select-button"
+            type="button"
+            [disabled]="disabled"
+            (click)="openFilePicker(index)"
+          >
+            <i class="fa-solid fa-folder-open" aria-hidden="true"></i>
+            <span>{{ buttonLabel }}</span>
+          </button>
+        }
+
+        @if (slot.error) {
+          <span class="slot-error">{{ slot.error }}</span>
+        }
+      </section>
+    }
+  </div>
+
+  <app-form-error [control]="control" />
+</div>

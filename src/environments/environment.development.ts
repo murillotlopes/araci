@@ -1,4 +1,7 @@
+import { AppEnvironment } from '../app/core/config/app-environment';
+
 export const environment = {
+  name: 'development',
   production: false,
-  apiUrl: 'http://localhost:4000/web'
-};
+  apiBaseUrl: 'http://localhost:4000',
+} satisfies AppEnvironment;

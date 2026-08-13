@@ -1,0 +1,13 @@
+.form-select-field select {
+  padding-right: 2rem;
+  cursor: pointer;
+
+  option {
+    background-color: var(--surface-color);
+    color: var(--text-color);
+  }
+
+  option:disabled {
+    color: var(--text-muted);
+  }
+}

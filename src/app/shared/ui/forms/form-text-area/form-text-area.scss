@@ -1,0 +1,9 @@
+.form-text-area-field textarea {
+  min-height: 6rem;
+  font-family: inherit;
+  line-height: var(--line-height-base);
+
+  &:read-only:not(:disabled) {
+    cursor: default;
+  }
+}
