@@ -1,28 +1,30 @@
 <main class="form-container">
-  <div class="form-box">
-    <h2 class="text-center mb-4 txt-primary">Login</h2>
+  <section class="form-box auth-card" aria-labelledby="login-title">
+    <header class="auth-header">
+      <h1 id="login-title">Acesse sua conta</h1>
+      <p>Juntos faremos grandes coisas.</p>
+    </header>
 
-    <form [formGroup]="formGroup" (ngSubmit)="submitForm($event)" autocomplete="off">
-      <div class="mb-3">
-        <app-input-text formControlName="email" [formGroup]="formGroup" label="E-mail"
-          placeholder="Digite seu e-mail"></app-input-text>
+    <form class="auth-form" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+      <div class="auth-field">
+        <app-input-text-float formControlName="email" [formGroup]="formGroup" label="E-mail"
+          placeholder="Digite seu e-mail"></app-input-text-float>
       </div>
 
-      <div class="mb-3">
-        <app-input-password formControlName="password" [formGroup]="formGroup" label="Senha"
-          placeholder="Digite sua senha"></app-input-password>
+      <div class="auth-field">
+        <app-input-password-float formControlName="password" [formGroup]="formGroup" label="Senha"
+          placeholder="Digite sua senha"></app-input-password-float>
       </div>
 
-      <button type="submit" class="btn btn-primary w-100" [disabled]="formGroup.invalid">
-        Entrar
-      </button>
-
-      <div class="text-center mt-3">
-        <a href="#">Esqueceu a senha?</a>
+      <div class="auth-actions">
+        <app-default-button type="submit" [disabled]="formGroup.invalid">
+          Entrar
+        </app-default-button>
       </div>
-      <div class="text-center mt-3">
+
+      <div class="auth-switch">
         <a routerLink="/register">Não tem uma conta? Faça seu cadastro</a>
       </div>
     </form>
-  </div>
+  </section>
 </main>

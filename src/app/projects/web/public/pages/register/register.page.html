@@ -1,39 +1,39 @@
 <main class="form-container">
-  <section class="form-box register-card" aria-labelledby="register-title">
-    <header class="register-header">
+  <section class="form-box auth-card" aria-labelledby="register-title">
+    <header class="auth-header">
       <h1 id="register-title">Crie sua conta</h1>
       <p>Comece agora com Pindorama.</p>
     </header>
 
-    <form class="register-form" [formGroup]="formGroup" (ngSubmit)="submitForm()">
+    <form class="auth-form" [formGroup]="formGroup" (ngSubmit)="submitForm()">
 
-      <div class="register-field">
+      <div class="auth-field">
         <app-input-text-float formControlName="primaryName" [formGroup]="formGroup" label="Nome Completo"
           placeholder="Seu nome completo"></app-input-text-float>
       </div>
 
-      <div class="register-field">
+      <div class="auth-field">
         <app-input-text-float formControlName="email" [formGroup]="formGroup" label="E-mail"
           placeholder="Seu e-mail"></app-input-text-float>
       </div>
 
-      <div class="register-field">
+      <div class="auth-field">
         <app-input-password-float formControlName="password" [formGroup]="formGroup" label="Senha"
           placeholder="Uma senha bem forte"></app-input-password-float>
       </div>
 
-      <div class="register-field">
+      <div class="auth-field">
         <app-input-password-float formControlName="confirmPassword" [formGroup]="formGroup" label="Confirmar Senha"
           placeholder="Repita a senha"></app-input-password-float>
       </div>
 
-      <div class="register-actions">
+      <div class="auth-actions">
         <app-default-button type="submit" [disabled]="formGroup.invalid">
           Cadastrar
         </app-default-button>
       </div>
 
-      <div class="register-login">
+      <div class="auth-switch">
         <a [routerLink]="['/login']">Já tem uma conta? Faça login</a>
       </div>
     </form>

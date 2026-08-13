@@ -1,34 +1,38 @@
 import { Component, inject } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 import { RouterLink } from '@angular/router';
 import { RxwebValidators } from '@rxweb/reactive-form-validators';
-import { FormResource } from '../../../../../shared/forms/form-resource';
-import { InputPassword } from '../../../../../shared/ui/forms/inputs/input-password/input-password';
-import { InputText } from '../../../../../shared/ui/forms/inputs/input-text/input-text';
+import { DefaultButton } from '../../../../../shared/ui/buttons/default-button/default-button';
+import { InputPasswordFloat } from '../../../../../shared/ui/forms/inputs/input-password-float/input-password-float';
+import { InputTextFloat } from '../../../../../shared/ui/forms/inputs/input-text-float/input-text-float';
 import { WebAuthFacade } from '../../../auth/application/web-auth.facade';
 import { WebSignInInput } from '../../../auth/data-access/web-auth.dto';
 
 @Component({
   selector: 'app-login',
-  imports: [ReactiveFormsModule, RouterLink, InputText, InputPassword],
+  imports: [ReactiveFormsModule, RouterLink, DefaultButton, InputTextFloat, InputPasswordFloat],
   templateUrl: './login.page.html',
   styleUrl: './login.page.scss'
 })
-export class LoginPage extends FormResource<WebSignInInput> {
-  private readonly authFacade = inject(WebAuthFacade)
+export class LoginPage {
+  private readonly formBuilder = inject(FormBuilder);
+  private readonly authFacade = inject(WebAuthFacade);
 
-  protected override createFormFields(): void {
-    this.formGroup = this.formBuilder.group({
-      email: [null, [RxwebValidators.required({ message: 'Campo obrigatório' }), RxwebValidators.email({ message: 'E-mail inválido' })]],
-      password: [null, RxwebValidators.required({ message: 'Campo obrigatório' })],
-    })
+  readonly formGroup = this.formBuilder.nonNullable.group({
+    email: ['', [
+      RxwebValidators.required({ message: 'Informe seu e-mail' }),
+      RxwebValidators.email({ message: 'E-mail inválido' }),
+    ]],
+    password: ['', [RxwebValidators.required({ message: 'Informe sua senha' })]],
+  });
+
+  submitForm(): void {
+    if (this.formGroup.invalid) {
+      this.formGroup.markAllAsTouched();
+      return;
+    }
+
+    const input: WebSignInInput = this.formGroup.getRawValue();
+    this.authFacade.signIn(input);
   }
-
-  protected override beforeSubmitForm(): void { }
-
-  protected override submitFormValue(value: WebSignInInput): void {
-    this.authFacade.signIn(value)
-  }
-
-  protected override afterSubmitForm(): void { }
 }

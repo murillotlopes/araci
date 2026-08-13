@@ -432,6 +432,50 @@ p {
   padding: var(--space-6);
 }
 
+.auth-card {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.auth-header {
+  text-align: center;
+}
+
+.auth-header h1 {
+  margin-bottom: var(--space-2);
+  color: var(--primary-color);
+}
+
+.auth-header p {
+  margin-bottom: 0;
+  font-size: var(--font-size-sm);
+}
+
+.auth-form {
+  display: grid;
+  gap: var(--space-2);
+}
+
+.auth-field {
+  min-width: 0;
+}
+
+.auth-actions,
+.auth-switch {
+  display: flex;
+  justify-content: center;
+}
+
+.auth-actions {
+  margin-top: var(--space-2);
+}
+
+.auth-switch {
+  margin-top: var(--space-3);
+  font-size: var(--font-size-sm);
+  text-align: center;
+}
+
 // Project buttons use one explicit base class plus semantic visual variants.
 .app-button {
   display: inline-flex;

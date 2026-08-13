@@ -84,6 +84,8 @@ Estão disponíveis `col-1` até `col-12` e as variantes `col-sm-*`, `col-md-*`,
   `bk-*`.
 - Botões do projeto: `app-button` como base, combinada com `app-button--primary` ou
   `app-button--secondary` para a variante visual.
+- Autenticação pública: `form-container` e `form-box` compõem a superfície; `auth-card`,
+  `auth-header`, `auth-form`, `auth-field`, `auth-actions` e `auth-switch` organizam login e cadastro.
 - Componentes mínimos compatíveis: `btn`, `btn-primary`, `btn-sm`, `navbar-*` e `collapse`.
 
 Antes de criar uma nova medida ou cor dentro de um componente, verifique se ela representa uma nova
