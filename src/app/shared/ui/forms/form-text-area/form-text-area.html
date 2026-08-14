@@ -1,14 +1,16 @@
-<div class="form-text-area-field" [formGroup]="formGroup">
+<div class="form-text-area-field">
   <label [for]="formControlName">{{ label }}</label>
   <textarea
     [id]="formControlName"
-    [formControlName]="formControlName"
+    [value]="value"
+    (input)="updateValue($event)"
+    (blur)="onTouched()"
     [placeholder]="placeholder"
     [rows]="rows"
     [attr.maxlength]="maxlength ?? null"
     [attr.minlength]="minlength ?? null"
     [class.invalid]="hasError"
-    [disabled]="disabled"
+    [disabled]="isDisabled"
     [readonly]="readonly"
     [style.resize]="resize"
   ></textarea>

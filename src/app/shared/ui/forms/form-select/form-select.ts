@@ -1,5 +1,12 @@
-import { Component, Input } from '@angular/core';
-import { AbstractControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { booleanAttribute, Component, forwardRef, Input } from '@angular/core';
+import {
+  AbstractControl,
+  ControlValueAccessor,
+  FormGroup,
+  FormsModule,
+  NG_VALUE_ACCESSOR,
+  ReactiveFormsModule,
+} from '@angular/forms';
 import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
 import { FormError } from '../form-error/form-error';
 
@@ -20,15 +27,28 @@ export type FormSelectOption =
   imports: [ReactiveFormsModule, FormsModule, RxReactiveFormsModule, FormError],
   templateUrl: './form-select.html',
   styleUrl: './form-select.scss',
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => FormSelect),
+      multi: true,
+    },
+  ],
 })
-export class FormSelect {
+export class FormSelect implements ControlValueAccessor {
   @Input({ required: true }) formControlName!: string;
   @Input({ required: true }) formGroup!: FormGroup;
   @Input({ required: true }) label!: string;
   @Input() options: FormSelectOption[] = [];
   @Input() placeholder = 'Selecione uma opção';
   @Input() showPlaceholder = true;
-  @Input() disabled = false;
+  @Input({ transform: booleanAttribute }) disabled = false;
+
+  value: FormSelectOptionValue = null;
+  controlDisabled = false;
+
+  public onChange = (_value: FormSelectOptionValue) => { };
+  public onTouched = () => { };
 
   get control(): AbstractControl | null {
     return this.formGroup?.get(this.formControlName) ?? null;
@@ -36,6 +56,32 @@ export class FormSelect {
 
   get hasError(): boolean {
     return !!(this.control && this.control.invalid && (this.control.dirty || this.control.touched));
+  }
+
+  get isDisabled(): boolean {
+    return this.disabled || this.controlDisabled;
+  }
+
+  public writeValue(value: FormSelectOptionValue): void {
+    this.value = value;
+  }
+
+  public registerOnChange(fn: (value: FormSelectOptionValue) => void): void {
+    this.onChange = fn;
+  }
+
+  public registerOnTouched(fn: () => void): void {
+    this.onTouched = fn;
+  }
+
+  public setDisabledState(isDisabled: boolean): void {
+    this.controlDisabled = isDisabled;
+  }
+
+  public selectValue(value: FormSelectOptionValue): void {
+    this.value = value;
+    this.onChange(value);
+    this.onTouched();
   }
 
   public getOptionLabel(option: FormSelectOption): string {

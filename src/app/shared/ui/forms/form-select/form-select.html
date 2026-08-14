@@ -1,10 +1,12 @@
-<div class="form-select-field" [formGroup]="formGroup">
+<div class="form-select-field">
   <label [for]="formControlName">{{ label }}</label>
   <select
     [id]="formControlName"
-    [formControlName]="formControlName"
+    [ngModel]="value"
+    (ngModelChange)="selectValue($event)"
+    [ngModelOptions]="{ standalone: true }"
     [class.invalid]="hasError"
-    [disabled]="disabled"
+    [disabled]="isDisabled"
   >
     @if (showPlaceholder) {
       <option [ngValue]="null">{{ placeholder }}</option>
