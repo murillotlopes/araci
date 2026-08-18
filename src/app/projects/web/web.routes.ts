@@ -38,6 +38,13 @@ export const WEB_ROUTES: Routes = [
         loadComponent: () =>
           import('./private/pages/dashboard/dashboard.page').then(({ DashboardPage }) => DashboardPage),
       },
+      {
+        path: 'exemplo',
+        loadComponent: () =>
+          import('./private/pages/exemplo-forms/exemplo-forms.page').then(
+            ({ ExemploFormsPage }) => ExemploFormsPage,
+          ),
+      },
     ],
   },
 ];

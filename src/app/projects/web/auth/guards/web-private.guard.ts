@@ -11,7 +11,7 @@ export const webPrivateGuard: CanActivateFn = (_route, state) => {
 
   return session.restore().pipe(map((isAuthenticated) => {
     if (!isAuthenticated) return router.parseUrl('/login');
-    if (state.url === '/dashboard') return true;
+    if (state.url === '/dashboard' || state.url === '/exemplo') return true;
 
     const item = flattenNavigation(WEB_NAVIGATION).find(({ link }) => link === state.url);
 
