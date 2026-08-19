@@ -1,13 +1,83 @@
-<header class="header-content">
-  <div class="">
-    <a class="nav-link" routerLink="#config"><i class="fa-solid fa-dumbbell mx-2"></i></a>
-    <a class="nav-link" routerLink="#config"><i class="fa-solid fa-bell mx-2"></i></a>
-
-    <a class="nav-link" (click)="toggleTheme()"> @if(theme === 'light') { <i class="fas fa-moon mx-2"></i>}
-      @else{ <i class="fas fa-sun mx-2"></i>}</a>
-    <a class="nav-link" routerLink="/user"><i class="fas fa-user  mx-2"></i></a>
-    <a class="nav-link" routerLink="/config" routerLinkActive="active"><i class="fa-solid fa-gear  mx-2"></i></a>
-    <a class="nav-link"><i class="fa-solid fa-right-from-bracket" title="Sair" alt="logout" (click)="logout()"></i></a>
-
+<header class="private-header">
+  <div class="organization" aria-label="Organização atual">
+    <span class="organization__icon" aria-hidden="true">
+      <i class="fa-solid fa-building"></i>
+    </span>
+    <span class="organization__details">
+      <strong class="organization__name">{{ organization.name }}</strong>
+      @if (organization.description) {
+        <span class="organization__description">{{ organization.description }}</span>
+      }
+    </span>
   </div>
+
+  <nav class="header-actions" aria-label="Ações rápidas">
+    <a
+      class="header-action"
+      routerLink="/dashboard"
+      routerLinkActive="header-action--active"
+      aria-label="Ir para a dashboard"
+      title="Dashboard"
+    >
+      <i class="fa-solid fa-house" aria-hidden="true"></i>
+    </a>
+
+    <button
+      class="header-action header-action--example"
+      type="button"
+      aria-label="Recursos"
+      title="Recursos (em breve)"
+    >
+      <i class="fa-solid fa-dumbbell" aria-hidden="true"></i>
+    </button>
+    <button
+      class="header-action header-action--example"
+      type="button"
+      aria-label="Notificações"
+      title="Notificações (em breve)"
+    >
+      <i class="fa-solid fa-bell" aria-hidden="true"></i>
+    </button>
+
+    <span class="header-actions__divider" aria-hidden="true"></span>
+
+    <button
+      class="header-action"
+      type="button"
+      (click)="toggleTheme()"
+      [attr.aria-label]="theme() === 'light' ? 'Ativar tema escuro' : 'Ativar tema claro'"
+      [title]="theme() === 'light' ? 'Tema escuro' : 'Tema claro'"
+    >
+      @if (theme() === 'light') {
+        <i class="fa-solid fa-moon" aria-hidden="true"></i>
+      } @else {
+        <i class="fa-solid fa-sun" aria-hidden="true"></i>
+      }
+    </button>
+    <button
+      class="header-action header-action--example"
+      type="button"
+      aria-label="Perfil"
+      title="Perfil (em breve)"
+    >
+      <i class="fa-solid fa-user" aria-hidden="true"></i>
+    </button>
+    <button
+      class="header-action header-action--example"
+      type="button"
+      aria-label="Configurações"
+      title="Configurações (em breve)"
+    >
+      <i class="fa-solid fa-gear" aria-hidden="true"></i>
+    </button>
+    <button
+      class="header-action header-action--logout"
+      type="button"
+      (click)="logout()"
+      aria-label="Sair"
+      title="Sair"
+    >
+      <i class="fa-solid fa-right-from-bracket" aria-hidden="true"></i>
+    </button>
+  </nav>
 </header>
